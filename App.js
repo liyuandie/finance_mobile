@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import RootTabs from './RootTab';
+import AppNavigator from './src/navigations/AppNavigator';
 
 export default class App extends Component {
   render() {
-    return <RootTabs />;
+    return <AppNavigator />;
   }
 }
 

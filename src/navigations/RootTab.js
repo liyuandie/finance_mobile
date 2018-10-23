@@ -1,23 +1,11 @@
 import { createBottomTabNavigator } from 'react-navigation';
-import HomeScreen from './src/components/HomeStacks/Home';
-import InvestScreen from './src/components/InvestStacks/Invest';
-import UserScreen from './src/components/UserStacks/User';
+import HomeScreen from '../components/HomeStacks/Home';
+import InvestScreen from '../components/InvestStacks/Invest';
+import UserScreen from '../components/UserStacks/User';
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-const tabBarCfg = {
-  Home: {
-    label: '首页',
-    iconName: 'home'
-  },
-  Invest: {
-    label: '投资',
-    iconName: 'finance'
-  },
-  User: {
-    label: '我',
-    iconName: 'account'
-  }
-};
+import { colors } from '../config';
+import { tabBarCfg } from '../config';
 
 const RootTabs = createBottomTabNavigator(
   {
@@ -42,8 +30,8 @@ const RootTabs = createBottomTabNavigator(
       };
     },
     tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: '#8e8e8e',
+      activeTintColor: colors.THEME_COLOR,
+      inactiveTintColor: colors.INACTIVE_TINT_COLOR,
       style: {
         borderTopWidth: 0.5,
         borderTopColor: '#e0e0e0',
@@ -52,9 +40,8 @@ const RootTabs = createBottomTabNavigator(
     }
   }
 );
+RootTabs.navigationOptions = {
+  header: null
+};
 
-export default class RootScreen extends Component {
-  render() {
-    return <RootTabs />;
-  }
-}
+export default RootTabs;
