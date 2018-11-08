@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import AppNavigator from './src/navigations/AppNavigator';
+import { Provider } from 'react-redux';
 
 export default class App extends Component {
   render() {

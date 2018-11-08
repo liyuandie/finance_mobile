@@ -8,6 +8,7 @@ class SettingScreen extends Component {
     title: '设置'
   };
   render() {
+    const { navigation } = this.props;
     return (
       <ScrollView>
         <View style={styles.block}>
@@ -21,6 +22,7 @@ class SettingScreen extends Component {
               leftIcon={{ name: 'account-circle', color: colors.THEME_COLOR, type: 'material-community', size: 50 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.navigate('UserInfo')}
             />
           </List>
         </View>
@@ -28,10 +30,20 @@ class SettingScreen extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="登录密码"
+              leftIcon={{ name: 'keyboard-variant', color: colors.SETTING_ICON_COLOR, type: 'material-community' }}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
+              rightTitle="修改"
+              rightTitleStyle={styles.listItemRightTitle}
             />
-            <ListItem title="支付密码" containerStyle={styles.listItemContainer} titleStyle={styles.listItemTitle} />
+            <ListItem
+              title="支付密码"
+              containerStyle={styles.listItemContainer}
+              titleStyle={styles.listItemTitle}
+              leftIcon={{ name: 'lock-outline', color: colors.SETTING_ICON_COLOR }}
+              rightTitle="修改/重置"
+              rightTitleStyle={styles.listItemRightTitle}
+            />
           </List>
         </View>
         <View style={styles.block}>
@@ -41,6 +53,7 @@ class SettingScreen extends Component {
               rightTitleStyle={{ color: 'red', fontSize: 12 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              leftIcon={{ name: 'credit-card', color: colors.SETTING_ICON_COLOR, type: 'material-community' }}
             />
           </List>
         </View>
@@ -50,17 +63,26 @@ class SettingScreen extends Component {
               title="关于我们"
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
+              leftIcon={{ name: 'people', color: colors.SETTING_ICON_COLOR }}
             />
             <ListItem
               title="检查更新"
               rightTitle="当前版本：1.0.0"
+              rightTitleStyle={styles.version}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              leftIcon={{ name: 'refresh', color: colors.SETTING_ICON_COLOR }}
             />
           </List>
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="退出登录" backgroundColor={colors.THEME_COLOR} rounded fontSize={18} fontWeight="400" />
+          <Button
+            title="退出登录"
+            backgroundColor={colors.THEME_COLOR}
+            borderRadius={5}
+            fontSize={18}
+            fontWeight="400"
+          />
         </View>
       </ScrollView>
     );
@@ -86,43 +108,17 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     borderBottomWidth: 0,
-    borderBottomColor: '#ffffff',
-    marginLeft: 10,
-    marginRight: 10
+    borderBottomColor: '#ffffff'
   },
   listItemContainerWithBorder: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#bebebe',
-    marginLeft: 10,
-    marginRight: 10
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0'
   },
   listItemTitle: {
     fontSize: 14
   },
-  total_container: {
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  profit_and_investing: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%'
-  },
-  row_box: {
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 60
-  },
-  amount: {
-    fontSize: 20,
-    fontWeight: '500',
-    color: colors.THEME_COLOR
-  },
   listItemRightTitle: {
-    fontSize: 15,
+    fontSize: 13,
     color: '#646464'
   },
   subtitleContainer: {
@@ -130,6 +126,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20
+  },
+  version: {
+    fontSize: 12
   }
 });
 

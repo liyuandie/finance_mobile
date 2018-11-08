@@ -1,17 +1,24 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { colors } from '../config';
 import RootTab from './RootTab';
 import Setting from '../components/UserStacks/setting';
+import UserInfo from '../components/UserStacks/userInfo';
+import Balance from '../components/UserStacks/balance';
+import LoginScreen from '../components/AuthStacks/login';
+import PreAuth from '../components/AuthStacks/PreAuth';
 
-const AppNavigator = createStackNavigator(
+const AppStack = createStackNavigator(
   {
     RootTab: RootTab,
-    Setting: Setting
+    Setting: Setting,
+    UserInfo: UserInfo,
+    Balance: Balance
   },
   {
     navigationOptions: {
       headerStyle: {
-        backgroundColor: colors.THEME_COLOR
+        backgroundColor: colors.THEME_COLOR,
+        borderBottomWidth: 0
       },
       headerTintColor: colors.HEADER_TINT_COLOR,
       headerTitleStyle: {
@@ -20,6 +27,37 @@ const AppNavigator = createStackNavigator(
       // header: null
     },
     initialRouteName: 'RootTab'
+  }
+);
+
+const AuthStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+    PreAuth: PreAuth
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: colors.THEME_COLOR,
+        borderBottomWidth: 0
+      },
+      headerTintColor: colors.HEADER_TINT_COLOR,
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      }
+      // header: null
+    },
+    initialRouteName: 'PreAuth'
+  }
+);
+
+const AppNavigator = createSwitchNavigator(
+  {
+    Auth: AuthStack,
+    App: AppStack
+  },
+  {
+    initialRouteName: 'Auth'
   }
 );
 

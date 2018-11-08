@@ -20,21 +20,22 @@ class UserScreen extends Component {
     };
   };
   render() {
+    const { navigation } = this.props;
     return (
       <ScrollView>
         <View style={styles.block}>
           <View style={styles.total_container}>
             <Text>持有资产(元)</Text>
-            <Text style={styles.amount}>10000.00</Text>
+            <Text style={styles.amount}>0.00</Text>
           </View>
           <View style={styles.profit_and_investing}>
             <View style={styles.row_box}>
               <Text>投资中(元)</Text>
-              <Text style={styles.amount}>10000.00</Text>
+              <Text style={styles.amount}>0.00</Text>
             </View>
             <View style={styles.row_box}>
               <Text>预期收益(元)</Text>
-              <Text style={styles.amount}>10000.00</Text>
+              <Text style={styles.amount}>0.00</Text>
             </View>
           </View>
         </View>
@@ -47,6 +48,7 @@ class UserScreen extends Component {
               leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon' }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.navigate('Balance')}
             />
           </List>
         </View>
@@ -64,6 +66,12 @@ class UserScreen extends Component {
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
+            {/* <ListItem
+              title="交易明细"
+              leftIcon={{ name: 'home-currency-usd', color: colors.THEME_COLOR, type: 'material-community' }}
+              containerStyle={styles.listItemContainer}
+              titleStyle={styles.listItemTitle}
+            /> */}
           </List>
         </View>
         <View style={styles.block}>
@@ -71,19 +79,6 @@ class UserScreen extends Component {
             <ListItem
               title="我的银行卡"
               leftIcon={{ name: 'bank', color: colors.THEME_COLOR, type: 'material-community' }}
-              containerStyle={styles.listItemContainerWithBorder}
-              titleStyle={styles.listItemTitle}
-            />
-            <ListItem
-              title="风险测评"
-              rightTitle="未测评"
-              rightTitleStyle={{ color: 'red', fontSize: 12 }}
-              // badge={{
-              //   value: 1,
-              //   textStyle: { color: '#ffffff' },
-              //   containerStyle: { marginTop: 0, backgroundColor: 'red', borderRadius: 1000 }
-              // }}
-              leftIcon={{ name: 'asterisk', color: colors.THEME_COLOR, type: 'material-community' }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
