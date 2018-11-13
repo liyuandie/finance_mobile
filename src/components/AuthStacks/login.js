@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Form } from 'beeshell';
 import { Button } from 'react-native-elements';
 import { colors } from '../../config';
-import * as accountApis from '../../apis/account';
+import * as userActions from '../../actions/user';
+import { connect } from 'react-redux';
+import { Tip } from 'beeshell';
 const FormItem = Form.Item;
 
-class Login extends Component {
+class LoginForm extends Component {
   static navigationOptions = {
     title: '登录'
   };
@@ -15,24 +17,55 @@ class Login extends Component {
     super(props);
     this.state = {
       mobile: '',
-      password: ''
+      password: '',
+      status: 0, //0：输入中 1：正在登陆
+      tipText: ''
     };
   }
 
   login = async () => {
-    const { mobile, password } = this.state;
-    const res = await accountApis.login({
-      mobile,
-      password
-    });
-    __DEV__ && console.log(res);
-    if (res.code === 0) {
-      this.props.navigation.navigate('App');
+    try {
+      const { mobile, password } = this.state;
+      if (mobile.length === 0 || password.length === 0) {
+        this.$tips('请输入手机号与密码');
+        return;
+      } else if (mobile.length !== 11) {
+        this.$tips('请输入正确的手机号');
+        return;
+      }
+      this.setState({ status: 1 });
+      const res = await this.props.login({
+        mobile,
+        password
+      });
+      __DEV__ && console.log(res);
+      if (res.code === 0) {
+        this.props.navigation.navigate('App');
+      }
+    } catch (error) {
+      Alert.alert('登陆失败', error.message, [{ text: '重试' }]);
+    }
+  };
+
+  $tips = async signal => {
+    try {
+      await this.setState({ tipText: signal });
+      this._tip.open();
+    } catch (e) {
+      return e;
     }
   };
   render() {
     return (
       <View style={styles.container}>
+        <Tip
+          ref={c => {
+            this._tip = c;
+          }}
+          body={this.state.tipText}
+          duration={3000}
+          alignItems="flex-end"
+        />
         <View>
           <Form>
             <FormItem prop="mobile" label="手机号" hasLine style={styles.formItemLabel}>
@@ -60,7 +93,7 @@ class Login extends Component {
         </View>
         <View style={styles.loginButtonContainer}>
           <Button
-            title="确认登录"
+            title={this.state.status === 0 ? '确认登录' : '登录中...'}
             backgroundColor={colors.THEME_COLOR}
             fontSize={18}
             fontWeight="400"
@@ -86,4 +119,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+export default (Login = connect(
+  null,
+  userActions
+)(LoginForm));

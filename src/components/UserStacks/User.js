@@ -45,7 +45,7 @@ class UserScreen extends Component {
               title="账户余额(元)"
               rightTitle="100,000,000"
               rightTitleStyle={styles.listItemRightTitle}
-              leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon' }}
+              leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
               onPress={() => navigation.navigate('Balance')}
@@ -56,13 +56,13 @@ class UserScreen extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="出借记录"
-              leftIcon={{ name: 'event-note', color: colors.THEME_COLOR, type: 'materialIcon' }}
+              leftIcon={{ name: 'event-note', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
             />
             <ListItem
               title="我的借款"
-              leftIcon={{ name: 'home-currency-usd', color: colors.THEME_COLOR, type: 'material-community' }}
+              leftIcon={{ name: 'equal-box', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
@@ -78,7 +78,7 @@ class UserScreen extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="我的银行卡"
-              leftIcon={{ name: 'bank', color: colors.THEME_COLOR, type: 'material-community' }}
+              leftIcon={{ name: 'bank', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
@@ -89,7 +89,7 @@ class UserScreen extends Component {
             <ListItem
               title="联系客服"
               rightTitle="400-888-9801"
-              leftIcon={{ name: 'headphones', color: colors.THEME_COLOR, type: 'material-community' }}
+              leftIcon={{ name: 'headphones', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
