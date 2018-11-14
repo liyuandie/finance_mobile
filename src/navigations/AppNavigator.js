@@ -6,6 +6,7 @@ import UserInfo from '../components/UserStacks/userInfo';
 import Balance from '../components/UserStacks/balance';
 import LoginScreen from '../components/AuthStacks/login';
 import PreAuth from '../components/AuthStacks/PreAuth';
+import Initialize from '../components/AuthStacks/Initialize';
 
 const AppStack = createStackNavigator(
   {
@@ -33,7 +34,8 @@ const AppStack = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     Login: LoginScreen,
-    PreAuth: PreAuth
+    PreAuth: PreAuth,
+    Initialize: Initialize
   },
   {
     navigationOptions: {
@@ -47,7 +49,7 @@ const AuthStack = createStackNavigator(
       }
       // header: null
     },
-    initialRouteName: 'PreAuth'
+    initialRouteName: 'Initialize'
   }
 );
 

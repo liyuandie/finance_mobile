@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { List, ListItem, Button } from 'react-native-elements';
 import { colors } from '../../config';
+import * as userActions from '../../actions/user';
+import { connect } from 'react-redux';
+import { ConfirmModal } from 'beeshell';
 
-class SettingScreen extends Component {
+class Setting extends Component {
   static navigationOptions = {
     title: '设置'
   };
+
+  logout = async () => {
+    const { mobile, ticket, logout, navigation } = this.props;
+    try {
+      const res = await logout({
+        mobile,
+        ticket
+      });
+      if (res.code === 0) {
+        navigation.push('Initialize');
+      }
+    } catch (error) {
+      Alert.alert('错误', error.message, [{ text: '确认' }]);
+    }
+  };
   render() {
-    const { navigation } = this.props;
+    __DEV__ && console.log('setting_screen props:', this.props);
+    const { navigation, user, mobile, ticket } = this.props;
     return (
       <ScrollView>
         <View style={styles.block}>
           <List containerStyle={styles.listContainer}>
             <ListItem
-              title="吴彦祖"
+              title={user.name}
               rightTitle="个人信息"
               rightTitleStyle={styles.listItemRightTitle}
-              subtitle="131****5197"
+              subtitle={`${user.mobile.slice(0, 3)}****${user.mobile.slice(7, 11)}`}
               subtitleContainerStyle={styles.subtitleContainer}
               leftIcon={{ name: 'account-circle', color: colors.THEME_COLOR, type: 'material-community', size: 50 }}
               containerStyle={styles.listItemContainer}
@@ -82,8 +101,23 @@ class SettingScreen extends Component {
             borderRadius={5}
             fontSize={18}
             fontWeight="400"
+            onPress={() => this._confirmModal.open()}
           />
         </View>
+        <ConfirmModal
+          ref={c => {
+            this._confirmModal = c;
+          }}
+          title="是否退出登录？"
+          body={null}
+          cancelable={true}
+          cancelCallback={() => {
+            __DEV__ && console.log('cancel');
+          }}
+          confirmCallback={() => {
+            this.logout();
+          }}
+        />
       </ScrollView>
     );
   }
@@ -132,4 +166,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SettingScreen;
+const mapState2Props = state => {
+  return {
+    user: state.user,
+    mobile: state.mobile,
+    ticket: state.ticket
+  };
+};
+export default (SettingScreen = connect(
+  mapState2Props,
+  userActions
+)(Setting));

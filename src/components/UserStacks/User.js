@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { List, ListItem, Icon, Badge } from 'react-native-elements';
 import { colors } from '../../config';
+import * as userActions from '../../actions/user';
+import { connect } from 'react-redux';
 
-class UserScreen extends Component {
+class User extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '我',
@@ -19,37 +21,65 @@ class UserScreen extends Component {
       headerRightContainerStyle: { paddingRight: 15 }
     };
   };
+
+  refresh = async () => {
+    const { mobile, ticket, lender_contract, queryBalanceByContract } = this.props;
+    try {
+      queryBalanceByContract({
+        mobile,
+        ticket,
+        contracts: lender_contract.contracts
+      });
+    } catch (error) {
+      Alert.alert('错误', error.message, [{ text: '确认' }]);
+    }
+  };
   render() {
-    const { navigation } = this.props;
+    __DEV__ && console.log('user_screen props:', this.props);
+    const { navigation, balance, lender_contract } = this.props;
+    let lender_balance = balance.find(x => x.contracts === lender_contract.contracts) || null;
+    let { total, tender, usable } = lender_balance;
+    total = (total / 100).toFixed(2);
+    tender = (tender / 100).toFixed(2);
+    usable = (usable / 100).toFixed(2);
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <View style={styles.block}>
           <View style={styles.total_container}>
-            <Text>持有资产(元)</Text>
-            <Text style={styles.amount}>0.00</Text>
+            <Text style={styles.total_text}>持有资产(元)</Text>
+            <Text style={styles.amount}>{total}</Text>
           </View>
-          <View style={styles.profit_and_investing}>
+          {/* <View style={styles.profit_and_investing}>
             <View style={styles.row_box}>
               <Text>投资中(元)</Text>
-              <Text style={styles.amount}>0.00</Text>
+              <Text style={styles.amount}>{tender}</Text>
             </View>
             <View style={styles.row_box}>
               <Text>预期收益(元)</Text>
               <Text style={styles.amount}>0.00</Text>
             </View>
-          </View>
+          </View> */}
         </View>
         <View style={styles.block}>
           <List containerStyle={styles.listContainer}>
             <ListItem
-              title="账户余额(元)"
-              rightTitle="100,000,000"
+              title="账户余额"
+              rightTitle={`${usable} 元`}
+              rightTitleStyle={styles.listItemRightTitle}
+              leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
+              containerStyle={styles.listItemContainer}
+              titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('Balance')}
+            />
+            {/* <ListItem
+              title="投资金额"
+              rightTitle={`${tender} 元`}
               rightTitleStyle={styles.listItemRightTitle}
               leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
               onPress={() => navigation.navigate('Balance')}
-            />
+            /> */}
           </List>
         </View>
         <View style={styles.block}>
@@ -102,13 +132,10 @@ class UserScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#f0f0f0'
   },
   block: {
-    marginBottom: 10,
+    marginBottom: 8,
     backgroundColor: '#ffffff',
     flex: 1,
     justifyContent: 'center'
@@ -120,23 +147,26 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     borderBottomWidth: 0,
+    // height: 40,
     borderBottomColor: '#ffffff',
     marginLeft: 10,
     marginRight: 10
   },
   listItemContainerWithBorder: {
     borderBottomWidth: 0.5,
-    borderBottomColor: '#bebebe',
+    borderBottomColor: '#e0e0e0',
+    // height: 40,
     marginLeft: 10,
     marginRight: 10
   },
   listItemTitle: {
-    fontSize: 14
+    fontSize: 14,
+    color: '#272727'
   },
   total_container: {
-    height: 80,
+    height: 150,
     justifyContent: 'center',
-    alignItems: 'center'
+    padding: 20
   },
   profit_and_investing: {
     flex: 1,
@@ -151,30 +181,34 @@ const styles = StyleSheet.create({
     height: 60
   },
   amount: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: '500',
     color: colors.THEME_COLOR
   },
+  total_text: {
+    fontSize: 12,
+    color: '#7b7b7b',
+    fontWeight: '100',
+    paddingBottom: 15
+  },
   listItemRightTitle: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#646464'
   }
 });
-const userStack = createStackNavigator(
-  {
-    userHome: UserScreen
-  },
-  {
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: colors.THEME_COLOR
-      },
-      headerTintColor: colors.HEADER_TINT_COLOR,
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
-    }
-  }
-);
+const mapState2Props = state => {
+  return {
+    user: state.user,
+    mobile: state.mobile,
+    ticket: state.ticket,
+    balance: state.balance,
+    lender_contract: state.lender_contract,
+    borrower_contract: state.borrower_contract,
+    user_setting: state.user_setting
+  };
+};
 
-export default userStack;
+export default (UserScreen = connect(
+  mapState2Props,
+  userActions
+)(User));

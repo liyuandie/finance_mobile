@@ -40,7 +40,7 @@ class LoginForm extends Component {
       });
       __DEV__ && console.log(res);
       if (res.code === 0) {
-        this.props.navigation.navigate('App');
+        this.props.navigation.push('Initialize');
       }
     } catch (error) {
       Alert.alert('登陆失败', error.message, [{ text: '重试' }]);

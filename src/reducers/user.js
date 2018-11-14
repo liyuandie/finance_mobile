@@ -3,8 +3,28 @@ const userAccount = (state = {}, action) => {
     case 'LOGIN':
       return {
         ...state,
-        user: action.auth.user,
-        ticket: action.auth.ticket
+        user: action.user,
+        ticket: action.ticket,
+        mobile: action.user.mobile
+      };
+    case 'ACCOUNT_INFO':
+      return {
+        ...state,
+        lender_contract: action.user_contracts.find(x => x.user_type === '01'),
+        borrower_contract: action.user_contracts.find(x => x.user_type === '02'),
+        balance: action.balance,
+        user_settings: action.user_settings
+      };
+    case 'ACCOUNT_BALANCE':
+      return {
+        ...state,
+        balance: action.balance
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        user: null,
+        balance: null
       };
     default:
       return state;
