@@ -68,4 +68,10 @@ const logout = ({ mobile, ticket }) => async dispatch => {
   }
 };
 
-export { login, accountInfo, queryBalanceByContract, logout };
+const clearAuth = () => dispatch => {
+  dispatch({
+    type: 'CLEAR_AUTH'
+  });
+};
+
+export { login, accountInfo, queryBalanceByContract, logout, clearAuth };

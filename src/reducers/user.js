@@ -22,9 +22,16 @@ const userAccount = (state = {}, action) => {
       };
     case 'LOGOUT':
       return {
+        ...state
+      };
+    case 'CLEAR_AUTH':
+      return {
         ...state,
+        mobile: '',
+        ticket: '',
         user: null,
-        balance: null
+        lender_contract: null,
+        borrower_contract: null
       };
     default:
       return state;

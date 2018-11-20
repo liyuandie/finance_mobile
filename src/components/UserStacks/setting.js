@@ -12,14 +12,16 @@ class Setting extends Component {
   };
 
   logout = async () => {
-    const { mobile, ticket, logout, navigation } = this.props;
+    const { mobile, ticket, logout, navigation, clearAuth } = this.props;
     try {
       const res = await logout({
         mobile,
         ticket
       });
       if (res.code === 0) {
+        clearAuth();
         navigation.push('Initialize');
+        return res;
       }
     } catch (error) {
       Alert.alert('错误', error.message, [{ text: '确认' }]);
@@ -28,6 +30,7 @@ class Setting extends Component {
   render() {
     __DEV__ && console.log('setting_screen props:', this.props);
     const { navigation, user, mobile, ticket } = this.props;
+    if (!user) return null;
     return (
       <ScrollView>
         <View style={styles.block}>
@@ -41,7 +44,7 @@ class Setting extends Component {
               leftIcon={{ name: 'account-circle', color: colors.THEME_COLOR, type: 'material-community', size: 50 }}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
-              onPress={() => navigation.navigate('UserInfo')}
+              onPress={() => navigation.push('UserInfo')}
             />
           </List>
         </View>
@@ -54,6 +57,7 @@ class Setting extends Component {
               titleStyle={styles.listItemTitle}
               rightTitle="修改"
               rightTitleStyle={styles.listItemRightTitle}
+              onPress={() => navigation.push('ChangeLoginPassword')}
             />
             <ListItem
               title="支付密码"
@@ -173,7 +177,7 @@ const mapState2Props = state => {
     ticket: state.ticket
   };
 };
-export default (SettingScreen = connect(
+export default connect(
   mapState2Props,
   userActions
-)(Setting));
+)(Setting);

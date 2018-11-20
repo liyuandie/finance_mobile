@@ -36,7 +36,8 @@ class User extends Component {
   };
   render() {
     __DEV__ && console.log('user_screen props:', this.props);
-    const { navigation, balance, lender_contract } = this.props;
+    const { navigation, balance, lender_contract, user } = this.props;
+    if (!user) return null;
     let lender_balance = balance.find(x => x.contracts === lender_contract.contracts) || null;
     let { total, tender, usable } = lender_balance;
     total = (total / 100).toFixed(2);
@@ -208,7 +209,7 @@ const mapState2Props = state => {
   };
 };
 
-export default (UserScreen = connect(
+export default connect(
   mapState2Props,
   userActions
-)(User));
+)(User);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { colors } from '../../config';
+import { connect } from 'react-redux';
+import * as utils from '../../utils';
 
 class UserInfo extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -10,13 +12,16 @@ class UserInfo extends Component {
     };
   };
   render() {
+    __DEV__ && console.log('userInfo_screen props:', this.props);
+    const { user, user_settings } = this.props;
+    const { is_finished_contest } = user_settings;
     return (
       <ScrollView>
         <View style={styles.block}>
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="用户名"
-              rightTitle="吴彦祖"
+              rightTitle={user.name}
               rightTitleStyle={styles.listItemRightTitle}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
@@ -27,15 +32,15 @@ class UserInfo extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="手机号"
-              rightTitle="13158855197"
+              rightTitle={user.mobile}
               rightTitleStyle={styles.listItemRightTitle}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
             />
             <ListItem
               title="电子邮箱"
-              rightTitle="907000795@qq.com"
-              rightTitleStyle={styles.listItemRightTitle}
+              rightTitle={user.mail ? user.mail : '未绑定'}
+              rightTitleStyle={user.mail ? styles.listItemRightTitle : styles.rightTitle_not_finished}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
@@ -45,8 +50,10 @@ class UserInfo extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="风险承受能力评估"
-              rightTitle="未评估"
-              rightTitleStyle={{ color: 'red', fontSize: 12 }}
+              rightTitle={
+                is_finished_contest ? utils.userUtils.getUserRiskLevel(user_settings.contest_score) : '未评估'
+              }
+              rightTitleStyle={is_finished_contest ? styles.listItemRightTitle : styles.rightTitle_not_finished}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
             />
@@ -91,7 +98,21 @@ const styles = StyleSheet.create({
   listItemRightTitle: {
     fontSize: 13,
     color: '#646464'
+  },
+  rightTitle_not_finished: {
+    color: 'red',
+    fontSize: 12
   }
 });
 
-export default UserInfo;
+const mapState2Props = state => {
+  return {
+    user: state.user,
+    user_settings: state.user_settings
+  };
+};
+
+export default connect(
+  mapState2Props,
+  null
+)(UserInfo);

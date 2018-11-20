@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { colors } from '../../config';
+import { connect } from 'react-redux';
 
 class Balance extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -12,11 +13,14 @@ class Balance extends Component {
     };
   };
   render() {
+    __DEV__ && console.log('lender balance screen props:', this.props);
+    const { balance, lender_contract } = this.props;
+    let lender_balance = balance.find(x => x.contracts === lender_contract.contracts) || null;
     return (
       <ScrollView>
         <View style={styles.balanceContainer}>
           <Text style={styles.title}>账户余额(元)</Text>
-          <Text style={styles.amount}>0.00</Text>
+          <Text style={styles.amount}>{(lender_balance.usable / 100).toFixed(2)}</Text>
         </View>
         <View>
           <List containerStyle={styles.listContainer}>
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     color: '#ffffff',
-    fontSize: 60,
+    fontSize: 40,
     paddingLeft: 10
   },
   listContainer: {
@@ -81,4 +85,17 @@ const styles = StyleSheet.create({
     color: '#000000'
   }
 });
-export default Balance;
+
+const mapState2Props = state => {
+  return {
+    balance: state.balance,
+    lender_contract: state.lender_contract,
+    mobile: state.mobile,
+    ticket: state.ticket
+  };
+};
+
+export default (BalanceScreen = connect(
+  mapState2Props,
+  null
+)(Balance));

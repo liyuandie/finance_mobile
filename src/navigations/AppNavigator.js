@@ -7,13 +7,15 @@ import Balance from '../components/UserStacks/balance';
 import LoginScreen from '../components/AuthStacks/login';
 import PreAuth from '../components/AuthStacks/PreAuth';
 import Initialize from '../components/AuthStacks/Initialize';
+import ChangeLoginPassword from '../components/UserStacks/ChangeLoginPassword';
 
 const AppStack = createStackNavigator(
   {
     RootTab: RootTab,
     Setting: Setting,
     UserInfo: UserInfo,
-    Balance: Balance
+    Balance: Balance,
+    ChangeLoginPassword: ChangeLoginPassword
   },
   {
     navigationOptions: {

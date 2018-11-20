@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Text } from 'react-native';
 import { Input, Form } from 'beeshell';
 import { Button } from 'react-native-elements';
 import { colors } from '../../config';
@@ -9,8 +9,12 @@ import { Tip } from 'beeshell';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
-  static navigationOptions = {
-    title: '登录'
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: '登录',
+      headerRight: <Text style={{ color: '#ffffff' }}>忘记密码</Text>,
+      headerRightContainerStyle: { paddingRight: 15 }
+    };
   };
 
   constructor(props) {
@@ -27,10 +31,13 @@ class LoginForm extends Component {
     try {
       const { mobile, password } = this.state;
       if (mobile.length === 0 || password.length === 0) {
-        this.$tips('请输入手机号与密码');
+        this.$tips('请输入手机号与密码！');
         return;
       } else if (mobile.length !== 11) {
-        this.$tips('请输入正确的手机号');
+        this.$tips('请输入正确的手机号！');
+        return;
+      } else if (password.length < 6) {
+        this.$tips('密码不能小于6位字符！');
         return;
       }
       this.setState({ status: 1 });
@@ -41,6 +48,10 @@ class LoginForm extends Component {
       __DEV__ && console.log(res);
       if (res.code === 0) {
         this.props.navigation.push('Initialize');
+        return res;
+      } else {
+        this.setState({ status: 0 });
+        Alert.alert('登陆失败', res.message, [{ text: '重试' }]);
       }
     } catch (error) {
       Alert.alert('登陆失败', error.message, [{ text: '重试' }]);
@@ -51,6 +62,7 @@ class LoginForm extends Component {
     try {
       await this.setState({ tipText: signal });
       this._tip.open();
+      return;
     } catch (e) {
       return e;
     }
