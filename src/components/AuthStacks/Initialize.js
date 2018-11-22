@@ -18,7 +18,6 @@ class BootStrap extends Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(async () => {
-      console.log('111111111', this.props);
       const { user, navigation, mobile, ticket } = this.props;
       if (!user) {
         navigation.push('PreAuth');

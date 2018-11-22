@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, Linking } from 'react-native';
 import { List, ListItem, Icon, Badge } from 'react-native-elements';
-import { colors } from '../../config';
+import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../config';
 import * as userActions from '../../actions/user';
 import { connect } from 'react-redux';
+import { ConfirmModal } from 'beeshell';
 
 class User extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -18,7 +19,7 @@ class User extends Component {
           onPress={() => navigation.navigate('Setting')}
         />
       ),
-      headerRightContainerStyle: { paddingRight: 15 }
+      headerRightContainerStyle: NAVIGATION_COMMON_STYLES.headerRightContainer
     };
   };
 
@@ -62,14 +63,14 @@ class User extends Component {
           </View> */}
         </View>
         <View style={styles.block}>
-          <List containerStyle={styles.listContainer}>
+          <List containerStyle={LIST_COMMON_STYLES.listContainer}>
             <ListItem
               title="账户余额"
               rightTitle={`${usable} 元`}
-              rightTitleStyle={styles.listItemRightTitle}
-              leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
+              rightTitleStyle={LIST_COMMON_STYLES.listItemRightTitle}
+              leftIcon={{ name: 'account-balance-wallet', color: colors.LOGO_COLOR, type: 'materialIcon', size: 22 }}
+              containerStyle={LIST_COMMON_STYLES.listItemContainer}
+              titleStyle={LIST_COMMON_STYLES.listItemTitle}
               onPress={() => navigation.push('Balance')}
             />
             {/* <ListItem
@@ -84,18 +85,18 @@ class User extends Component {
           </List>
         </View>
         <View style={styles.block}>
-          <List containerStyle={styles.listContainer}>
+          <List containerStyle={LIST_COMMON_STYLES.listContainer}>
             <ListItem
               title="出借记录"
               leftIcon={{ name: 'event-note', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
-              containerStyle={styles.listItemContainerWithBorder}
-              titleStyle={styles.listItemTitle}
+              containerStyle={LIST_COMMON_STYLES.listItemContainerWithBorder}
+              titleStyle={LIST_COMMON_STYLES.listItemTitle}
             />
             <ListItem
               title="我的借款"
               leftIcon={{ name: 'equal-box', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
+              containerStyle={LIST_COMMON_STYLES.listItemContainer}
+              titleStyle={LIST_COMMON_STYLES.listItemTitle}
             />
             {/* <ListItem
               title="交易明细"
@@ -106,26 +107,50 @@ class User extends Component {
           </List>
         </View>
         <View style={styles.block}>
-          <List containerStyle={styles.listContainer}>
+          <List containerStyle={LIST_COMMON_STYLES.listContainer}>
             <ListItem
               title="我的银行卡"
-              leftIcon={{ name: 'bank', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
+              leftIcon={{ name: 'bank', color: colors.ICON_BANK, type: 'material-community', size: 22 }}
+              containerStyle={LIST_COMMON_STYLES.listItemContainer}
+              titleStyle={LIST_COMMON_STYLES.listItemTitle}
             />
           </List>
         </View>
         <View style={styles.block}>
-          <List containerStyle={styles.listContainer}>
+          <List containerStyle={LIST_COMMON_STYLES.listContainer}>
             <ListItem
               title="联系客服"
               rightTitle="400-888-9801"
               leftIcon={{ name: 'headphones', color: colors.THEME_COLOR, type: 'material-community', size: 22 }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
+              containerStyle={LIST_COMMON_STYLES.listItemContainer}
+              titleStyle={LIST_COMMON_STYLES.listItemTitle}
+              onPress={() => this._confirmModal.open()}
             />
           </List>
         </View>
+        <ConfirmModal
+          ref={c => {
+            this._confirmModal = c;
+          }}
+          title="联系客服"
+          body="请呼叫：400-888-8901"
+          cancelable={true}
+          confirmTitle="呼叫"
+          cancelCallback={() => {
+            __DEV__ && console.log('cancel');
+          }}
+          confirmCallback={() => {
+            Linking.canOpenURL('tel:4008889801')
+              .then(supported => {
+                if (!supported) {
+                  Alert.alert('错误', '呼叫失败，请手动拨打');
+                } else {
+                  return Linking.openURL('tel:4008889801');
+                }
+              })
+              .catch(err => console.error('An error occurred', err));
+          }}
+        />
       </ScrollView>
     );
   }
@@ -140,29 +165,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     flex: 1,
     justifyContent: 'center'
-  },
-  listContainer: {
-    marginTop: 0,
-    borderTopWidth: 0,
-    borderBottomWidth: 0
-  },
-  listItemContainer: {
-    borderBottomWidth: 0,
-    // height: 40,
-    borderBottomColor: '#ffffff',
-    marginLeft: 10,
-    marginRight: 10
-  },
-  listItemContainerWithBorder: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#e0e0e0',
-    // height: 40,
-    marginLeft: 10,
-    marginRight: 10
-  },
-  listItemTitle: {
-    fontSize: 14,
-    color: '#272727'
   },
   total_container: {
     height: 150,
@@ -191,10 +193,6 @@ const styles = StyleSheet.create({
     color: '#7b7b7b',
     fontWeight: '100',
     paddingBottom: 15
-  },
-  listItemRightTitle: {
-    fontSize: 14,
-    color: '#646464'
   }
 });
 const mapState2Props = state => {

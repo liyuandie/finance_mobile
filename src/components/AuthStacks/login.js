@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Alert, Text } from 'react-native';
 import { Input, Form } from 'beeshell';
 import { Button } from 'react-native-elements';
-import { colors } from '../../config';
+import { colors, NAVIGATION_COMMON_STYLES } from '../../config';
 import * as userActions from '../../actions/user';
 import { connect } from 'react-redux';
 import { Tip } from 'beeshell';
@@ -12,8 +12,8 @@ class LoginForm extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '登录',
-      headerRight: <Text style={{ color: '#ffffff' }}>忘记密码</Text>,
-      headerRightContainerStyle: { paddingRight: 15 }
+      headerRight: <Text style={NAVIGATION_COMMON_STYLES.headerRight}>忘记密码</Text>,
+      headerRightContainerStyle: NAVIGATION_COMMON_STYLES.headerRightContainer
     };
   };
 
@@ -80,7 +80,7 @@ class LoginForm extends Component {
         />
         <View>
           <Form>
-            <FormItem prop="mobile" label="手机号" hasLine style={styles.formItemLabel}>
+            <FormItem prop="mobile" label="手机号" hasLine>
               <Input
                 placeholder="请输入手机号"
                 textAlign="left"
@@ -122,9 +122,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff'
-  },
-  formItemLabel: {
-    color: 'red'
   },
   loginButtonContainer: {
     paddingTop: 20

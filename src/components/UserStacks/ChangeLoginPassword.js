@@ -39,7 +39,7 @@ class ChangeLoginPassword extends Component {
         this.setState({ hasSendMsg: true });
         let { timer } = this.state;
         this.sendMsgTimer = setInterval(() => {
-          console.log('222222222222222', timer);
+          console.log('second to resend:', timer);
           timer -= 1;
           this.setState({ timer });
           if (timer === 0) {

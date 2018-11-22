@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { colors } from '../../config';
+import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../config';
 import { connect } from 'react-redux';
 
 class Balance extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '账户余额',
-      headerRight: <Text style={styles.headerRight}>明细</Text>,
-      headerRightContainerStyle: { paddingRight: 15 }
+      headerRight: <Text style={NAVIGATION_COMMON_STYLES.headerRight}>明细</Text>,
+      headerRightContainerStyle: NAVIGATION_COMMON_STYLES.headerRightContainer
     };
   };
   render() {
@@ -26,7 +26,7 @@ class Balance extends Component {
           <List containerStyle={styles.listContainer}>
             <ListItem
               title="充值"
-              leftIcon={{ name: 'login', color: colors.THEME_COLOR, type: 'material-community', size: 20 }}
+              leftIcon={{ name: 'credit-card', color: colors.THEME_COLOR, size: 20 }}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
             />
@@ -34,7 +34,7 @@ class Balance extends Component {
               title="提现"
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
-              leftIcon={{ name: 'logout', color: colors.THEME_COLOR, type: 'material-community', size: 20 }}
+              leftIcon={{ name: 'wallet', color: colors.LOGO_COLOR, type: 'material-community', size: 20 }}
             />
           </List>
         </View>

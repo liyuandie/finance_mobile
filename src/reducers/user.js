@@ -13,7 +13,8 @@ const userAccount = (state = {}, action) => {
         lender_contract: action.user_contracts.find(x => x.user_type === '01'),
         borrower_contract: action.user_contracts.find(x => x.user_type === '02'),
         balance: action.balance,
-        user_settings: action.user_settings
+        user_settings: action.user_settings,
+        user: action.user
       };
     case 'ACCOUNT_BALANCE':
       return {

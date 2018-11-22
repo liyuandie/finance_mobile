@@ -8,14 +8,22 @@ import LoginScreen from '../components/AuthStacks/login';
 import PreAuth from '../components/AuthStacks/PreAuth';
 import Initialize from '../components/AuthStacks/Initialize';
 import ChangeLoginPassword from '../components/UserStacks/ChangeLoginPassword';
+import AboutUs from '../components/UserStacks/About/AboutUs';
+import FindUs from '../components/UserStacks/About/FindUs';
+import SetUserName from '../components/UserStacks/SetName';
+import SetEmail from '../components/UserStacks/SetEmail';
 
 const AppStack = createStackNavigator(
   {
-    RootTab: RootTab,
-    Setting: Setting,
-    UserInfo: UserInfo,
-    Balance: Balance,
-    ChangeLoginPassword: ChangeLoginPassword
+    RootTab,
+    Setting,
+    UserInfo,
+    Balance,
+    ChangeLoginPassword,
+    AboutUs,
+    FindUs,
+    SetUserName,
+    SetEmail
   },
   {
     navigationOptions: {
@@ -26,7 +34,8 @@ const AppStack = createStackNavigator(
       headerTintColor: colors.HEADER_TINT_COLOR,
       headerTitleStyle: {
         fontWeight: 'bold'
-      }
+      },
+      headerBackTitle: null
       // header: null
     },
     initialRouteName: 'RootTab'

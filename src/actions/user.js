@@ -28,7 +28,8 @@ const accountInfo = ({ mobile, ticket }) => async dispatch => {
       type: 'ACCOUNT_INFO',
       user_contracts: res.user_contracts,
       balance: res.user_balances,
-      user_settings: res.user_settings
+      user_settings: res.user_settings,
+      user: res.user
     });
     return res;
   } catch (error) {

@@ -32,3 +32,23 @@ export function logout(params) {
     ticket
   });
 }
+
+//修改用户名
+export function modifyUserName(params) {
+  const { mobile, ticket, name } = params || {};
+  return postApi('/user/account/update', {
+    mobile,
+    ticket,
+    name
+  });
+}
+
+//修改、绑定邮箱
+export function modifyEmail(params) {
+  const { mobile, ticket, email } = params || {};
+  return postApi('/user/account/update', {
+    mobile,
+    ticket,
+    email
+  });
+}

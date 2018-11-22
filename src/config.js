@@ -1,15 +1,21 @@
+import { StyleSheet } from 'react-native';
 export let API_BASE_URL = __DEV__ ? `https://api.dev.gogofinance.com` : `https://api.prod.gogofinance.com`;
 
 export const colors = {
-  THEME_COLOR: '#E38537',
+  LOGO_COLOR: '#E38537',
+  THEME_COLOR: '#46A3FF',
   HEADER_TINT_COLOR: '#ffffff',
   TAB_BAR_BG_COLOR: '#ffffff',
   INACTIVE_TINT_COLOR: '#8E8E8E',
-  SETTING_ICON_COLOR: '#bebebe'
+  SETTING_ICON_COLOR: '#bebebe',
+  ICON_BANK: '#EAC100'
 };
 
 export const DEBUG = __DEV__;
 export const IN_DEBUGGER = DEBUG && !!window.navigator.userAgent;
+
+// 注意格式 v1.v2.v3;
+export const VERSION = '1.7.0';
 
 export const tabBarCfg = {
   Home: {
@@ -25,3 +31,43 @@ export const tabBarCfg = {
     iconName: 'account'
   }
 };
+
+export const LIST_COMMON_STYLES = StyleSheet.create({
+  listContainer: {
+    marginTop: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0
+  },
+  listItemContainer: {
+    borderBottomWidth: 0,
+    borderBottomColor: '#ffffff',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  listItemContainerWithBorder: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e0e0e0',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  listItemTitle: {
+    fontSize: 14,
+    color: '#000000',
+    paddingLeft: 5
+  },
+  listItemRightTitle: {
+    fontSize: 14,
+    color: '#646464'
+  }
+});
+
+export const NAVIGATION_COMMON_STYLES = StyleSheet.create({
+  headerRight: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: '500'
+  },
+  headerRightContainer: {
+    paddingRight: 15
+  }
+});

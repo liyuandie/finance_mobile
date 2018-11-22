@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { colors } from '../../config';
 import { connect } from 'react-redux';
 import * as utils from '../../utils';
 
@@ -13,7 +12,7 @@ class UserInfo extends Component {
   };
   render() {
     __DEV__ && console.log('userInfo_screen props:', this.props);
-    const { user, user_settings } = this.props;
+    const { user, user_settings, navigation } = this.props;
     const { is_finished_contest } = user_settings;
     return (
       <ScrollView>
@@ -25,6 +24,7 @@ class UserInfo extends Component {
               rightTitleStyle={styles.listItemRightTitle}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('SetUserName')}
             />
           </List>
         </View>
@@ -43,6 +43,7 @@ class UserInfo extends Component {
               rightTitleStyle={user.mail ? styles.listItemRightTitle : styles.rightTitle_not_finished}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('SetEmail')}
             />
           </List>
         </View>
@@ -65,12 +66,6 @@ class UserInfo extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff'
-  },
   block: {
     marginBottom: 10,
     backgroundColor: '#ffffff',
