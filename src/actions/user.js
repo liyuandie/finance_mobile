@@ -39,7 +39,7 @@ const accountInfo = ({ mobile, ticket }) => async dispatch => {
 
 const queryBalanceByContract = ({ mobile, ticket, contracts }) => async dispatch => {
   try {
-    const res = await UserApis.getAccountInfo({
+    const res = await UserApis.queryBalance({
       mobile,
       ticket,
       contracts

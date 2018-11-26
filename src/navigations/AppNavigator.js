@@ -12,6 +12,10 @@ import AboutUs from '../components/UserStacks/About/AboutUs';
 import FindUs from '../components/UserStacks/About/FindUs';
 import SetUserName from '../components/UserStacks/SetName';
 import SetEmail from '../components/UserStacks/SetEmail';
+import TestIntroduce from '../components/UserStacks/RiskLevel/TestIntroduce';
+import RiskLevelRule from '../components/UserStacks/RiskLevel/RiskLevelRule';
+import Test from '../components/UserStacks/RiskLevel/Test';
+import TestResult from '../components/UserStacks/RiskLevel/TestResult';
 
 const AppStack = createStackNavigator(
   {
@@ -23,7 +27,11 @@ const AppStack = createStackNavigator(
     AboutUs,
     FindUs,
     SetUserName,
-    SetEmail
+    SetEmail,
+    TestIntroduce,
+    RiskLevelRule,
+    Test,
+    TestResult
   },
   {
     navigationOptions: {

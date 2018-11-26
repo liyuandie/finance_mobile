@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TextInput, Image } from 'react-native';
-import { Input, Form } from 'beeshell';
+import { View, StyleSheet, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { colors } from '../../config';
-import * as accountApis from '../../apis/account';
-const FormItem = Form.Item;
 
 class PreAuth extends Component {
   static navigationOptions = {

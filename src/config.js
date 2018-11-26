@@ -8,7 +8,8 @@ export const colors = {
   TAB_BAR_BG_COLOR: '#ffffff',
   INACTIVE_TINT_COLOR: '#8E8E8E',
   SETTING_ICON_COLOR: '#bebebe',
-  ICON_BANK: '#EAC100'
+  ICON_BANK: '#EAC100',
+  ICON_SUCCESS: '#00DB00'
 };
 
 export const DEBUG = __DEV__;

@@ -57,6 +57,7 @@ class UserInfo extends Component {
               rightTitleStyle={is_finished_contest ? styles.listItemRightTitle : styles.rightTitle_not_finished}
               containerStyle={styles.listItemContainer}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('TestIntroduce')}
             />
           </List>
         </View>
