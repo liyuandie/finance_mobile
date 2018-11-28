@@ -1,4 +1,5 @@
 import * as UserApis from '../apis/account';
+import * as cardApis from '../apis/card';
 
 const login = ({ mobile, password }) => async dispatch => {
   try {
@@ -46,7 +47,7 @@ const queryBalanceByContract = ({ mobile, ticket, contracts }) => async dispatch
     });
     dispatch({
       type: 'ACCOUNT_BALANCE',
-      balance: res.balances
+      balance: res.balance
     });
     return res;
   } catch (error) {
@@ -75,4 +76,21 @@ const clearAuth = () => dispatch => {
   });
 };
 
-export { login, accountInfo, queryBalanceByContract, logout, clearAuth };
+const cardInfo = ({ mobile, ticket, contract }) => async dispatch => {
+  try {
+    const res = await cardApis.getCardInfo({
+      mobile,
+      ticket,
+      contract
+    });
+    dispatch({
+      type: 'CARD_INFO',
+      card_info: res.user_card
+    });
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export { login, accountInfo, queryBalanceByContract, logout, clearAuth, cardInfo };

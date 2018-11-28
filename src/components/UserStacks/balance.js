@@ -14,13 +14,12 @@ class Balance extends Component {
   };
   render() {
     __DEV__ && console.log('lender balance screen props:', this.props);
-    const { balance, lender_contract } = this.props;
-    let lender_balance = balance.find(x => x.contracts === lender_contract.contracts) || null;
+    const { balance } = this.props;
     return (
       <ScrollView>
         <View style={styles.balanceContainer}>
           <Text style={styles.title}>账户余额(元)</Text>
-          <Text style={styles.amount}>{(lender_balance.usable / 100).toFixed(2)}</Text>
+          <Text style={styles.amount}>{(balance.usable / 100).toFixed(2)}</Text>
         </View>
         <View>
           <List containerStyle={styles.listContainer}>

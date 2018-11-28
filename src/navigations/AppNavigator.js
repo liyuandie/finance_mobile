@@ -16,6 +16,7 @@ import TestIntroduce from '../components/UserStacks/RiskLevel/TestIntroduce';
 import RiskLevelRule from '../components/UserStacks/RiskLevel/RiskLevelRule';
 import Test from '../components/UserStacks/RiskLevel/Test';
 import TestResult from '../components/UserStacks/RiskLevel/TestResult';
+import MyCard from '../components/UserStacks/card/MyCard';
 
 const AppStack = createStackNavigator(
   {
@@ -31,7 +32,8 @@ const AppStack = createStackNavigator(
     TestIntroduce,
     RiskLevelRule,
     Test,
-    TestResult
+    TestResult,
+    MyCard
   },
   {
     navigationOptions: {

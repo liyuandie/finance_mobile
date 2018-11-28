@@ -23,6 +23,7 @@ class Setting extends Component {
         navigation.push('Initialize');
         return res;
       }
+      return res;
     } catch (error) {
       Alert.alert('错误', error.message, [{ text: '确认' }]);
     }
@@ -77,6 +78,7 @@ class Setting extends Component {
               containerStyle={LIST_COMMON_STYLES.listItemContainer}
               titleStyle={LIST_COMMON_STYLES.listItemTitle}
               leftIcon={{ name: 'credit-card', color: colors.SETTING_ICON_COLOR, type: 'material-community' }}
+              onPress={() => navigation.push('MyCard')}
             />
           </List>
         </View>

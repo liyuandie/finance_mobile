@@ -18,7 +18,7 @@ export function getAccountInfo(params) {
 //根据签约号查询余额
 export function queryBalance(params) {
   const { mobile, ticket, contracts } = params || {};
-  return postApi(' /user/contract/user/balance', {
+  return postApi('/user/contract/user/balance', {
     mobile,
     ticket,
     contracts

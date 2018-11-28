@@ -24,23 +24,30 @@ class User extends Component {
   };
 
   refresh = async () => {
-    const { mobile, ticket, lender_contract, queryBalanceByContract } = this.props;
+    const { mobile, ticket, lender_contract, queryBalanceByContract, cardInfo } = this.props;
     try {
-      queryBalanceByContract({
+      await queryBalanceByContract({
         mobile,
         ticket,
         contracts: lender_contract.contracts
+      });
+      await cardInfo({
+        mobile,
+        ticket,
+        contract: lender_contract.contracts
       });
     } catch (error) {
       Alert.alert('错误', error.message, [{ text: '确认' }]);
     }
   };
+  // componentDidMount() {
+  //   this.refresh();
+  // }
   render() {
     __DEV__ && console.log('user_screen props:', this.props);
     const { navigation, balance, lender_contract, user } = this.props;
     if (!user) return null;
-    let lender_balance = balance.find(x => x.contracts === lender_contract.contracts) || null;
-    let { total, tender, usable } = lender_balance;
+    let { total, tender, usable } = balance;
     total = (total / 100).toFixed(2);
     tender = (tender / 100).toFixed(2);
     usable = (usable / 100).toFixed(2);
@@ -113,6 +120,7 @@ class User extends Component {
               leftIcon={{ name: 'bank', color: colors.ICON_BANK, type: 'material-community', size: 22 }}
               containerStyle={LIST_COMMON_STYLES.listItemContainer}
               titleStyle={LIST_COMMON_STYLES.listItemTitle}
+              onPress={() => navigation.push('MyCard')}
             />
           </List>
         </View>

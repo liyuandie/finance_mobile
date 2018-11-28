@@ -9,7 +9,8 @@ export const colors = {
   INACTIVE_TINT_COLOR: '#8E8E8E',
   SETTING_ICON_COLOR: '#bebebe',
   ICON_BANK: '#EAC100',
-  ICON_SUCCESS: '#00DB00'
+  ICON_SUCCESS: '#00DB00',
+  BANK_CARD_BACKGROUND: '#ff7575'
 };
 
 export const DEBUG = __DEV__;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Alert, View, Text, Image, StyleSheet, InteractionManager } from 'react-native';
 import { connect } from 'react-redux';
 import * as userActions from '../../actions/user';
-
 class BootStrap extends Component {
   static navigationOptions = {
     header: null
@@ -28,15 +27,27 @@ class BootStrap extends Component {
           ticket
         });
         if (res.code === 0) {
+          const { lender_contract, cardInfo, queryBalanceByContract } = this.props;
+          await cardInfo({
+            mobile,
+            ticket,
+            contract: lender_contract.contracts
+          });
+          await queryBalanceByContract({
+            mobile,
+            ticket,
+            contracts: lender_contract.contracts
+          });
           navigation.navigate('App');
         }
       } catch (error) {
-        Alert.alert('获取用户信息失败', error.message, [{ text: '重试' }]);
+        Alert.alert('获取用户信息失败');
       }
     });
   }
 
   render() {
+    __DEV__ && console.log('bootstrap screen props:', this.props);
     return (
       <View style={styles.container}>
         <Image source={require('gogo_mobile/static/imgs/icon_512.png')} style={styles.logo} />
@@ -71,10 +82,18 @@ const mapState2props = state => {
   return {
     user: state.user,
     ticket: state.ticket,
-    mobile: state.mobile
+    mobile: state.mobile,
+    lender_contract: state.lender_contract
   };
 };
 
+// const mapDispatch2Props = dispatch => {
+//   return {
+//     accountInfo: userActions.accountInfo,
+//     cardInfo: cardActions.cardInfo,
+//     dispatch
+//   };
+// };
 export default (Initialize = connect(
   mapState2props,
   userActions

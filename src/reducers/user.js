@@ -25,6 +25,11 @@ const userAccount = (state = {}, action) => {
       return {
         ...state
       };
+    case 'CARD_INFO':
+      return {
+        ...state,
+        card_info: action.card_info
+      };
     case 'CLEAR_AUTH':
       return {
         ...state,

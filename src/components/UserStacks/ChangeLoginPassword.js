@@ -48,6 +48,7 @@ class ChangeLoginPassword extends Component {
             return;
           }
         }, 1000);
+        return res;
       }
     } catch (error) {
       Alert.alert('错误', error.message, [{ text: '确认' }]);
