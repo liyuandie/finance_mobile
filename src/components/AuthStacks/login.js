@@ -59,14 +59,11 @@ class LoginForm extends Component {
   };
 
   $tips = async signal => {
-    try {
-      await this.setState({ tipText: signal });
-      this._tip.open();
-      return;
-    } catch (e) {
-      return e;
-    }
+    await this.setState({ tipText: signal });
+    this._tip.open();
+    return;
   };
+
   render() {
     return (
       <View style={styles.container}>

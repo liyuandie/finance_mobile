@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Input } from 'beeshell';
-import { NAVIGATION_COMMON_STYLES } from '../../config';
-import * as userActions from '../../actions/user';
-import * as userApis from '../../apis/account';
+import { NAVIGATION_COMMON_STYLES } from '../../../config';
+import * as userActions from '../../../actions/user';
+import * as userApis from '../../../apis/account';
 
-class SetUserName extends Component {
+class SetEmail extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: '设置用户名',
+      title: '绑定邮箱',
       headerRight: (
         <Text style={NAVIGATION_COMMON_STYLES.headerRight} onPress={navigation.getParam('submit')}>
-          保存
+          绑定
         </Text>
       ),
       headerRightContainerStyle: { paddingRight: 15 }
@@ -22,7 +22,7 @@ class SetUserName extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      new_name: this.props.user.name
+      email: this.props.user.mail
     };
   }
 
@@ -32,12 +32,12 @@ class SetUserName extends Component {
 
   submit = async () => {
     const { mobile, ticket, accountInfo, navigation } = this.props;
-    const name = this.state.new_name;
+    const email = this.state.email;
     try {
-      const res = await userApis.modifyUserName({
+      const res = await userApis.modifyEmail({
         mobile,
         ticket,
-        name
+        email
       });
       if (res.code === 0) {
         await accountInfo({
@@ -58,16 +58,16 @@ class SetUserName extends Component {
     }
   };
   render() {
-    __DEV__ && console.log('set_user_name screen props:', this.props);
+    __DEV__ && console.log('set_email screen props:', this.props);
     return (
       <View style={styles.container}>
         <View style={styles.block}>
           <Input
-            placeholder="请输入用户名"
+            placeholder="请输入电子邮箱"
             textAlign="left"
-            value={this.state.new_name}
+            value={this.state.email}
             onChange={value => {
-              this.setState({ new_name: value });
+              this.setState({ email: value });
             }}
             style={styles.input}
           />
@@ -100,4 +100,4 @@ const mapState2Props = state => {
 export default connect(
   mapState2Props,
   userActions
-)(SetUserName);
+)(SetEmail);

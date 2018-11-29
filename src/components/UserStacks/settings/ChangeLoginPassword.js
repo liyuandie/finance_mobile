@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import { colors } from '../../config';
+import { colors } from '../../../config';
 import { connect } from 'react-redux';
 import { Form, Input, Tip, ConfirmModal } from 'beeshell';
 import { Button } from 'react-native-elements';
-import * as SmsApis from '../../apis/sms';
-import * as PwdApis from '../../apis/password';
-import * as userActions from '../../actions/user';
+import * as SmsApis from '../../../apis/sms';
+import * as PwdApis from '../../../apis/password';
+import * as userActions from '../../../actions/user';
 
 const FormItem = Form.Item;
 
@@ -39,7 +39,7 @@ class ChangeLoginPassword extends Component {
         this.setState({ hasSendMsg: true });
         let { timer } = this.state;
         this.sendMsgTimer = setInterval(() => {
-          console.log('second to resend:', timer);
+          __DEV__ && console.log('second to resend:', timer);
           timer -= 1;
           this.setState({ timer });
           if (timer === 0) {

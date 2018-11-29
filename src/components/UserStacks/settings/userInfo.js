@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-import * as utils from '../../utils';
+import * as utils from '../../../utils';
 
 class UserInfo extends Component {
   static navigationOptions = ({ navigation }) => {

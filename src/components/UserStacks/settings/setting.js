@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { List, ListItem, Button } from 'react-native-elements';
-import { colors, VERSION, LIST_COMMON_STYLES } from '../../config';
-import * as userActions from '../../actions/user';
+import { colors, VERSION, LIST_COMMON_STYLES } from '../../../config';
+import * as userActions from '../../../actions/user';
 import { connect } from 'react-redux';
 import { ConfirmModal } from 'beeshell';
 

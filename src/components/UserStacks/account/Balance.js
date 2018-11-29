@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../config';
+import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../../config';
 import { connect } from 'react-redux';
+import { numberUtils } from '../../../utils';
 
 class Balance extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '账户余额',
-      headerRight: <Text style={NAVIGATION_COMMON_STYLES.headerRight}>明细</Text>,
+      headerRight: (
+        <Text style={NAVIGATION_COMMON_STYLES.headerRight} onPress={() => navigation.push('TradingRecord')}>
+          明细
+        </Text>
+      ),
       headerRightContainerStyle: NAVIGATION_COMMON_STYLES.headerRightContainer
     };
   };
@@ -19,7 +24,7 @@ class Balance extends Component {
       <ScrollView>
         <View style={styles.balanceContainer}>
           <Text style={styles.title}>账户余额(元)</Text>
-          <Text style={styles.amount}>{(balance.usable / 100).toFixed(2)}</Text>
+          <Text style={styles.amount}>{numberUtils.convertAmount(balance.usable / 100)}</Text>
         </View>
         <View>
           <List containerStyle={styles.listContainer}>

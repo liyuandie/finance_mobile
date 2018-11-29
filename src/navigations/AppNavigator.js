@@ -1,22 +1,23 @@
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { colors } from '../config';
 import RootTab from './RootTab';
-import Setting from '../components/UserStacks/setting';
-import UserInfo from '../components/UserStacks/userInfo';
-import Balance from '../components/UserStacks/balance';
+import Setting from '../components/UserStacks/settings/setting';
+import UserInfo from '../components/UserStacks/settings/userInfo';
+import Balance from '../components/UserStacks/account/Balance';
 import LoginScreen from '../components/AuthStacks/login';
 import PreAuth from '../components/AuthStacks/PreAuth';
 import Initialize from '../components/AuthStacks/Initialize';
-import ChangeLoginPassword from '../components/UserStacks/ChangeLoginPassword';
+import ChangeLoginPassword from '../components/UserStacks/settings/ChangeLoginPassword';
 import AboutUs from '../components/UserStacks/About/AboutUs';
 import FindUs from '../components/UserStacks/About/FindUs';
-import SetUserName from '../components/UserStacks/SetName';
-import SetEmail from '../components/UserStacks/SetEmail';
+import SetUserName from '../components/UserStacks/settings/SetName';
+import SetEmail from '../components/UserStacks/settings/SetEmail';
 import TestIntroduce from '../components/UserStacks/RiskLevel/TestIntroduce';
 import RiskLevelRule from '../components/UserStacks/RiskLevel/RiskLevelRule';
 import Test from '../components/UserStacks/RiskLevel/Test';
 import TestResult from '../components/UserStacks/RiskLevel/TestResult';
 import MyCard from '../components/UserStacks/card/MyCard';
+import TradingRecord from '../components/UserStacks/account/TradingRecord';
 
 const AppStack = createStackNavigator(
   {
@@ -33,7 +34,8 @@ const AppStack = createStackNavigator(
     RiskLevelRule,
     Test,
     TestResult,
-    MyCard
+    MyCard,
+    TradingRecord
   },
   {
     navigationOptions: {

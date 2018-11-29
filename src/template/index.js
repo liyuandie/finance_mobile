@@ -28,8 +28,7 @@ const styles = StyleSheet.create({
 const mapState2Props = state => {
   return {
     user: state.user,
-    user_settings: state.user_settings,
-    monile: state.mobile,
+    mobile: state.mobile,
     ticket: state.ticket
   };
 };

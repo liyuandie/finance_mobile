@@ -6,6 +6,7 @@ import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../conf
 import * as userActions from '../../actions/user';
 import { connect } from 'react-redux';
 import { ConfirmModal } from 'beeshell';
+import { numberUtils } from '../../utils';
 
 class User extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,15 +49,15 @@ class User extends Component {
     const { navigation, balance, lender_contract, user } = this.props;
     if (!user) return null;
     let { total, tender, usable } = balance;
-    total = (total / 100).toFixed(2);
-    tender = (tender / 100).toFixed(2);
-    usable = (usable / 100).toFixed(2);
+    total = total / 100;
+    tender = tender / 100;
+    usable = usable / 100;
     return (
       <ScrollView style={styles.container}>
         <View style={styles.block}>
           <View style={styles.total_container}>
             <Text style={styles.total_text}>持有资产(元)</Text>
-            <Text style={styles.amount}>{total}</Text>
+            <Text style={styles.amount}>{numberUtils.convertAmount(total)}</Text>
           </View>
           {/* <View style={styles.profit_and_investing}>
             <View style={styles.row_box}>
@@ -73,7 +74,7 @@ class User extends Component {
           <List containerStyle={LIST_COMMON_STYLES.listContainer}>
             <ListItem
               title="账户余额"
-              rightTitle={`${usable} 元`}
+              rightTitle={`${numberUtils.convertAmount(usable)} 元`}
               rightTitleStyle={LIST_COMMON_STYLES.listItemRightTitle}
               leftIcon={{ name: 'account-balance-wallet', color: colors.LOGO_COLOR, type: 'materialIcon', size: 22 }}
               containerStyle={LIST_COMMON_STYLES.listItemContainer}
