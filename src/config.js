@@ -4,13 +4,15 @@ export let API_BASE_URL = __DEV__ ? `https://api.dev.gogofinance.com` : `https:/
 export const colors = {
   LOGO_COLOR: '#E38537',
   THEME_COLOR: '#46A3FF',
+  // THEME_COLOR: '#E38537',
   HEADER_TINT_COLOR: '#ffffff',
   TAB_BAR_BG_COLOR: '#ffffff',
   INACTIVE_TINT_COLOR: '#8E8E8E',
   SETTING_ICON_COLOR: '#bebebe',
   ICON_BANK: '#EAC100',
   ICON_SUCCESS: '#00DB00',
-  BANK_CARD_BACKGROUND: '#ff7575'
+  BANK_CARD_BACKGROUND: '#ff7575',
+  BORDER_COLOR: '#e0e0e0'
 };
 
 export const DEBUG = __DEV__;
