@@ -17,7 +17,7 @@ class HomeScreen extends Component {
       products: [],
       tipText: '',
       refreshing: false,
-      hot_product: {}
+      hot_product: null
     };
   }
 
@@ -172,66 +172,78 @@ class HomeScreen extends Component {
               <Text style={styles.tag_text}>热门推荐</Text>
             </View>
           </View>
-          <View style={styles.hot_product_container}>
-            <Text style={styles.hot_product_name}>{hot_product.name}</Text>
-            <View style={styles.hot_product_interest_container}>
-              <Text style={styles.hot_product_interest}>{hot_product.interest.toFixed(2)}</Text>
-              <Text style={styles.hot_product_percent}> %</Text>
+          {hot_product && hot_product != {} ? (
+            <View style={styles.hot_product_container}>
+              <Text style={styles.hot_product_name}>{hot_product.name}</Text>
+              <View style={styles.hot_product_interest_container}>
+                <Text style={styles.hot_product_interest}>{hot_product.interest.toFixed(2)}</Text>
+                <Text style={styles.hot_product_percent}>%</Text>
+              </View>
+              <View style={styles.hot_product_tags_container}>
+                <Text style={styles.hot_product_tags}>一元起投</Text>
+                <Text style={styles.hot_product_tags}>超高回报</Text>
+                <Text style={styles.hot_product_tags}>安全保障</Text>
+              </View>
+              <Button
+                title="立即购买"
+                backgroundColor={colors.THEME_COLOR}
+                borderRadius={20}
+                buttonStyle={{ width: 250, height: 40, marginBottom: 25 }}
+                fontSize={15}
+              />
             </View>
-            <View style={styles.hot_product_tags_container}>
-              <Text style={styles.hot_product_tags}>一元起投</Text>
-              <Text style={styles.hot_product_tags}>超高回报</Text>
-              <Text style={styles.hot_product_tags}>安全保障</Text>
-            </View>
-            <Button
-              title="立即购买"
-              backgroundColor={colors.THEME_COLOR}
-              borderRadius={20}
-              buttonStyle={{ width: 250, height: 40, marginBottom: 25 }}
-              fontSize={15}
-            />
-          </View>
+          ) : (
+            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c' }}>
+              暂无产品，请耐心等待或尝试下拉刷新
+            </Text>
+          )}
         </View>
         <Text style={{ ...styles.title, paddingTop: 10 }}> —— 优质产品 ——</Text>
         <View style={styles.block}>
-          {products.map(x => {
-            return (
-              <View style={styles.product_item} key={x.id}>
-                <View style={styles.above}>
-                  <Text style={styles.product_name}>{x.name}</Text>
-                  <View style={styles.info_row_container}>
-                    <View style={styles.info_column}>
-                      <View style={styles.value}>
-                        <Text style={styles.big_text}>{x.interest.toFixed(2)}</Text>
-                        <Text style={styles.small}>%</Text>
+          {products && products.length > 0 ? (
+            products.map(x => {
+              return (
+                <View style={styles.product_item} key={x.id}>
+                  <View style={styles.above}>
+                    <Text style={styles.product_name}>{x.name}</Text>
+                    <View style={styles.info_row_container}>
+                      <View style={styles.info_column}>
+                        <View style={styles.value}>
+                          <Text style={styles.big_text}>{x.interest.toFixed(2)}</Text>
+                          <Text style={styles.small}>%</Text>
+                        </View>
+                        <Text style={styles.key}>年化收益</Text>
                       </View>
-                      <Text style={styles.key}>年化收益</Text>
-                    </View>
-                    <View style={styles.info_column}>
-                      <View style={styles.value}>
-                        <Text style={styles.big_text}>{timeUtils.daysOfEaring(x)}</Text>
-                        <Text style={{ ...styles.small, color: '#3c3c3c' }}>天</Text>
+                      <View style={styles.info_column}>
+                        <View style={styles.value}>
+                          <Text style={styles.big_text}>{timeUtils.daysOfEaring(x)}</Text>
+                          <Text style={{ ...styles.small, color: '#3c3c3c' }}>天</Text>
+                        </View>
+                        <Text style={styles.key}>投资期限</Text>
                       </View>
-                      <Text style={styles.key}>投资期限</Text>
-                    </View>
-                    <View style={styles.info_column}>
-                      <PercentageCircle
-                        radius={25}
-                        percent={tenderUtils.getRemindPercent(x)}
-                        color={colors.THEME_COLOR}
-                      />
+                      <View style={styles.info_column}>
+                        <PercentageCircle
+                          radius={25}
+                          percent={tenderUtils.getRemindPercent(x)}
+                          color={colors.THEME_COLOR}
+                        />
+                      </View>
                     </View>
                   </View>
+                  <View style={styles.below}>
+                    <Text style={styles.product_type}>{financialProType[x.fType]}</Text>
+                    <Text style={styles.product_rest}>{`剩余:￥${numberUtils.convertAmount(
+                      x.finance_info.remind / 100
+                    )}`}</Text>
+                  </View>
                 </View>
-                <View style={styles.below}>
-                  <Text style={styles.product_type}>{financialProType[x.fType]}</Text>
-                  <Text style={styles.product_rest}>{`剩余:￥${numberUtils.convertAmount(
-                    x.finance_info.remind / 100
-                  )}`}</Text>
-                </View>
-              </View>
-            );
-          })}
+              );
+            })
+          ) : (
+            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c' }}>
+              暂无产品，请耐心等待或尝试下拉刷新
+            </Text>
+          )}
         </View>
       </ScrollView>
     );
@@ -337,7 +349,8 @@ const styles = StyleSheet.create({
   hot_product_percent: {
     fontSize: 13,
     color: '#FF5809',
-    marginTop: 10
+    marginTop: 10,
+    paddingLeft: 5
   },
   hot_product_tags_container: {
     flexDirection: 'row',
