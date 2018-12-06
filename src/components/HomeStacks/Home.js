@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView, RefreshControl, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  ScrollView,
+  RefreshControl,
+  Alert,
+  InteractionManager
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 const { height, width } = Dimensions.get('window');
 import { Avatar, Icon, Button } from 'react-native-elements';
@@ -22,10 +32,10 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-    this.refresh();
+    InteractionManager.runAfterInteractions(() => this.refresh());
   }
 
-  async refresh() {
+  refresh = async () => {
     try {
       this.setState({ refreshing: true });
       const res = await tenderApis.getAllTenders({
@@ -40,8 +50,9 @@ class HomeScreen extends Component {
       return res;
     } catch (error) {
       this.$tips('获取失败，请手动刷新或稍后再试');
+      this.setState({ refreshing: false });
     }
-  }
+  };
 
   $tips = async signal => {
     try {
@@ -193,7 +204,7 @@ class HomeScreen extends Component {
               />
             </View>
           ) : (
-            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c' }}>
+            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c', lineHeight: 100 }}>
               暂无产品，请耐心等待或尝试下拉刷新
             </Text>
           )}
@@ -240,7 +251,7 @@ class HomeScreen extends Component {
               );
             })
           ) : (
-            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c' }}>
+            <Text style={{ ...styles.title, paddingTop: 10, color: '#3c3c3c', lineHeight: 100 }}>
               暂无产品，请耐心等待或尝试下拉刷新
             </Text>
           )}

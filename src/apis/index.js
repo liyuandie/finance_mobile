@@ -97,7 +97,7 @@ export function getApi(
 export function postApi(
   url,
   data = {},
-  { headers = {}, json = false, urlencoded = true, timeout = 5000, background = false, onUploadProgress, ...rest } = {}
+  { headers = {}, json = false, urlencoded = true, timeout = 3000, background = false, onUploadProgress, ...rest } = {}
 ) {
   let postData = serializeBody(data, { json, urlencoded, headers });
   return requestApi({

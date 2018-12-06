@@ -8,8 +8,8 @@ export function getQuestionnaire(params) {
     ticket
   });
 }
-// 提交上传分数
 
+// 提交上传分数
 export function submitScore(params) {
   const { mobile, ticket, score } = params;
   return postApi('/user/questionnaire/score', {

@@ -111,7 +111,9 @@ class TradingRecord extends Component {
 
   _onFilterSelected = async () => {
     await this._modal.close();
-    this.refresh();
+    this.refresh().then(() => {
+      this.$tips('刷新成功');
+    });
   };
 
   refresh = async () => {
@@ -130,7 +132,6 @@ class TradingRecord extends Component {
         totalPage: res.total,
         foot_status: 0
       });
-      this.$tips('刷新成功');
       __DEV__ && console.log('this.state.records', this.state.records);
     } catch (error) {
       this.$tips('刷新失败');
@@ -194,7 +195,7 @@ class TradingRecord extends Component {
     } else if (this.state.foot_status === 1) {
       return (
         <View style={styles.footer}>
-          <Text style={styles.footer_text}>正在加载更多数据...</Text>
+          <Text style={styles.footer_text}>玩命加载中...</Text>
         </View>
       );
     } else if (this.state.foot_status === 0) {
@@ -260,7 +261,11 @@ class TradingRecord extends Component {
             renderItem={this._renderItem}
             // keyExtractor={this._keyExtractor}
             onEndReached={this.loadMore}
-            onRefresh={this.refresh}
+            onRefresh={async () => {
+              this.refresh().then(() => {
+                this.$tips('刷新成功');
+              });
+            }}
           />
         ) : (
           <Text style={styles.empty}> 暂时没有交易记录 </Text>

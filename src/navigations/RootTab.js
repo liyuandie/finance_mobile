@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from 'react-navigation';
 import HomeScreen from '../components/HomeStacks/Home';
-import InvestScreen from '../components/InvestStacks/Invest';
+import InvestScreen from '../components/InvestStacks/navigator';
 import UserScreen from '../components/UserStacks/navigator';
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

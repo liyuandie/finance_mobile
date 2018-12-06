@@ -20,6 +20,7 @@ class BootStrap extends Component {
       const { user, navigation, mobile, ticket } = this.props;
       if (!user) {
         navigation.push('PreAuth');
+        return;
       }
       try {
         const res = await this.props.accountInfo({
@@ -32,6 +33,8 @@ class BootStrap extends Component {
             mobile,
             ticket,
             contract: lender_contract.contracts
+          }).catch(error => {
+            Alert.alert('错误', error.message);
           });
           await queryBalanceByContract({
             mobile,
@@ -39,6 +42,7 @@ class BootStrap extends Component {
             contracts: lender_contract.contracts
           });
           navigation.navigate('App');
+          return res;
         }
       } catch (error) {
         Alert.alert('获取用户信息失败');
