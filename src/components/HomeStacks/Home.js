@@ -66,6 +66,7 @@ class HomeScreen extends Component {
 
   render() {
     let { products, hot_product } = this.state;
+    const { navigation } = this.props;
     return (
       <ScrollView
         refreshControl={
@@ -125,11 +126,12 @@ class HomeScreen extends Component {
                 rounded
                 source={{
                   uri:
-                    'https://nc-apps.oss-cn-beijing.aliyuncs.com/assets/avatar/avatar_bank.png?x-oss-process=style/default'
+                    'https://nc-apps.oss-cn-beijing.aliyuncs.com/assets/avatar/avatar_info.png?x-oss-process=style/default'
                 }}
                 containerStyle={styles.avatar_container}
+                onPress={() => navigation.push('Catalogue')}
               />
-              <Text style={styles.avatar_text}>银行存管</Text>
+              <Text style={styles.avatar_text}>信息披露</Text>
             </View>
             <View style={styles.avatar}>
               <Avatar
@@ -137,11 +139,12 @@ class HomeScreen extends Component {
                 rounded
                 source={{
                   uri:
-                    'https://nc-apps.oss-cn-beijing.aliyuncs.com/assets/avatar/avatar_info.png?x-oss-process=style/default'
+                    'https://nc-apps.oss-cn-beijing.aliyuncs.com/assets/avatar/avatar_bank.png?x-oss-process=style/default'
                 }}
                 containerStyle={styles.avatar_container}
+                onPress={() => navigation.push('BankInfo')}
               />
-              <Text style={styles.avatar_text}>信息披露</Text>
+              <Text style={styles.avatar_text}>银行存管</Text>
             </View>
             <View style={styles.avatar}>
               <Avatar
@@ -152,6 +155,7 @@ class HomeScreen extends Component {
                     'https://nc-apps.oss-cn-beijing.aliyuncs.com/assets/avatar/avatar_risk.png?x-oss-process=style/default'
                 }}
                 containerStyle={styles.avatar_container}
+                onPress={() => navigation.push('Safety')}
               />
               <Text style={styles.avatar_text}>安全保障</Text>
             </View>

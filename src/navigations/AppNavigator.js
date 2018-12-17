@@ -18,6 +18,16 @@ import Test from '../components/UserStacks/RiskLevel/Test';
 import TestResult from '../components/UserStacks/RiskLevel/TestResult';
 import MyCard from '../components/UserStacks/card/MyCard';
 import TradingRecord from '../components/UserStacks/account/TradingRecord';
+import Catalogue from '../components/HomeStacks/Infos/Catalogue';
+import Company from '../components/HomeStacks/Infos/Company';
+import Xinpishengming from '../components/HomeStacks/Infos/Xinpishengming';
+import Beianxinxi from '../components/HomeStacks/Infos/beianxinxi';
+import FeeStandard from '../components/HomeStacks/Infos/FeeStandard';
+import RiskManage from '../components/HomeStacks/Infos/RiskManage';
+import ReviewReport from '../components/HomeStacks/Infos/ReviewReport';
+import License from '../components/HomeStacks/Infos/License';
+import Safety from '../components/HomeStacks/Infos/Safety';
+import BankInfo from '../components/HomeStacks/Infos/BankInfo';
 
 const AppStack = createStackNavigator(
   {
@@ -35,7 +45,17 @@ const AppStack = createStackNavigator(
     Test,
     TestResult,
     MyCard,
-    TradingRecord
+    TradingRecord,
+    Catalogue,
+    Company,
+    Xinpishengming,
+    Beianxinxi,
+    FeeStandard,
+    RiskManage,
+    ReviewReport,
+    License,
+    Safety,
+    BankInfo
   },
   {
     navigationOptions: {

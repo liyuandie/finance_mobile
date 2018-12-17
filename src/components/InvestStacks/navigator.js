@@ -50,7 +50,7 @@ class TabBarComponent extends Component {
   }
 
   render() {
-    console.log('invest page tabBar props:', this.props.navigation.state.index);
+    __DEV__ && console.log('invest page tabBar props:', this.props.navigation.state.index);
     return (
       <View style={styles.tabBarContainer}>
         <ButtonGroup

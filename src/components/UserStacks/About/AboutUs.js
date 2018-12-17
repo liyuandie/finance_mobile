@@ -33,6 +33,7 @@ class AboutUs extends Component {
               title="公司简介"
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('Company')}
             />
             <ListItem
               title="联系我们"
