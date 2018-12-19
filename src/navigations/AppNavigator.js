@@ -28,6 +28,8 @@ import ReviewReport from '../components/HomeStacks/Infos/ReviewReport';
 import License from '../components/HomeStacks/Infos/License';
 import Safety from '../components/HomeStacks/Infos/Safety';
 import BankInfo from '../components/HomeStacks/Infos/BankInfo';
+import FinancialPro from '../components/InvestStacks/FinancialPro/FinancialPro';
+import Buyers from '../components/InvestStacks/FinancialPro/Buyers';
 
 const AppStack = createStackNavigator(
   {
@@ -55,7 +57,9 @@ const AppStack = createStackNavigator(
     ReviewReport,
     License,
     Safety,
-    BankInfo
+    BankInfo,
+    FinancialPro,
+    Buyers
   },
   {
     navigationOptions: {

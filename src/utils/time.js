@@ -1,5 +1,11 @@
+// 格式化时间 xxxx-xx-xx xx:xx:xx
 export function formatDate(time) {
   return `${time.slice(0, 10)} ${time.slice(11, 19)}`;
+}
+
+// 格式化时间 xxxx-xx-xx
+export function formatDateSimple(time) {
+  return `${time.slice(0, 10)}`;
 }
 
 // 计算投资期限

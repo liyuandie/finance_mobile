@@ -1,61 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, Text, StyleSheet } from 'react-native';
 import * as tenderApis from '../../apis/financail_pro';
 import { Tip, Longlist } from 'beeshell';
 import { colors } from '../../config';
-import { timeUtils, numberUtils, tenderUtils } from '../../utils';
-import PercentageCircle from 'react-native-percentage-circle';
-
-class ListItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { name, interest, daysOfEaring, percent, remind, isBuyable, btnText } = this.props;
-    return (
-      <View style={styles.product_item}>
-        <View style={styles.above}>
-          <Text style={styles.product_name}>{name}</Text>
-          <View style={styles.info_row_container}>
-            <View style={styles.info_column}>
-              <View style={styles.value}>
-                <Text style={styles.big_text}>{interest.toFixed(2)}</Text>
-                <Text style={styles.small}>%</Text>
-              </View>
-              <Text style={styles.key}>年化收益</Text>
-            </View>
-            <View style={styles.info_column}>
-              <View style={styles.value}>
-                <Text style={styles.big_text}>{daysOfEaring}</Text>
-                <Text style={{ ...styles.small, color: '#3c3c3c' }}>天</Text>
-              </View>
-              <Text style={styles.key}>投资期限</Text>
-            </View>
-            <View style={styles.info_column}>
-              <PercentageCircle radius={25} percent={percent} color={colors.THEME_COLOR} />
-            </View>
-          </View>
-        </View>
-        <View style={styles.below}>
-          <Text style={styles.product_rest}>{`剩余:￥${numberUtils.convertAmount(remind / 100)}`}</Text>
-          <Button
-            title={btnText}
-            backgroundColor={colors.THEME_COLOR}
-            buttonStyle={styles.buyButton}
-            fontSize={10}
-            color="#ffffff"
-            borderRadius={5}
-            containerViewStyle={{
-              marginRight: 10
-            }}
-            disabled={isBuyable}
-          />
-        </View>
-      </View>
-    );
-  }
-}
+import { timeUtils, tenderUtils } from '../../utils';
+import ListItem from './ListItem';
 
 class CunDan extends Component {
   constructor(props) {
@@ -84,7 +33,7 @@ class CunDan extends Component {
         totalPage: res.total,
         foot_status: 0
       });
-      __DEV__ && console.log('this.state.products:', this.state.products);
+      __DEV__ && console.log('存单：', this.state.products);
       return res;
     } catch (error) {
       this.$tips('获取失败，请手动刷新或稍后再试');
@@ -116,7 +65,7 @@ class CunDan extends Component {
         pageNo: this.state.pageNo + 1,
         foot_status: 0
       });
-      __DEV__ && console.log('this.state.products', this.state.products);
+      __DEV__ && console.log('加载更多后存单：', this.state.products);
     } catch (error) {
       this.$tips('加载失败');
       this.setState({
@@ -136,6 +85,7 @@ class CunDan extends Component {
   };
 
   _renderItem = ({ item }) => {
+    const { navigation } = this.props;
     return (
       <ListItem
         id={item.id.toString()}
@@ -147,6 +97,11 @@ class CunDan extends Component {
         remind={item.finance_info.remind}
         isBuyable={tenderUtils.isBuyalbe(item)}
         btnText={tenderUtils.getBtnText(item)}
+        _onPress={() => {
+          navigation.push('FinancialPro', {
+            product: item
+          });
+        }}
       />
     );
   };
@@ -210,78 +165,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 15,
     color: colors.THEME_COLOR
-  },
-  block: {
-    backgroundColor: '#ffffff',
-    alignItems: 'center'
-  },
-  product_item: {
-    width: '100%'
-  },
-  above: {
-    borderTopColor: colors.BORDER_COLOR,
-    borderTopWidth: 0.5
-  },
-  product_name: {
-    fontSize: 13,
-    color: '#3c3c3c',
-    paddingLeft: 10,
-    paddingTop: 10
-  },
-  info_row_container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 10,
-    marginRight: 10
-  },
-  info_column: {
-    marginBottom: 10,
-    alignItems: 'flex-start'
-  },
-  value: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginTop: 5,
-    marginBottom: 5
-  },
-  big_text: {
-    fontSize: 25,
-    color: '#FF5809'
-  },
-  small: {
-    fontSize: 13,
-    color: '#FF5809',
-    marginBottom: 4,
-    paddingLeft: 5
-  },
-  key: {
-    fontSize: 11,
-    color: '#8e8e8e'
-  },
-  below: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopColor: colors.BORDER_COLOR,
-    borderTopWidth: 0.5
-  },
-  product_type: {
-    fontSize: 11,
-    color: '#3c3c3c',
-    padding: 10
-  },
-  product_rest: {
-    fontSize: 11,
-    color: '#3c3c3c',
-    padding: 10
-  },
-  buyButton: {
-    width: 40,
-    height: 15
-  },
-  buyButton: {
-    padding: 8,
-    width: 60
   },
   footer: {
     flexDirection: 'row',

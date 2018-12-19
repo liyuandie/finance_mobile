@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 export let API_BASE_URL = __DEV__ ? `https://api.dev.gogofinance.com` : `https://api.prod.gogofinance.com`;
+// export let API_BASE_URL = `https://api.prod.gogofinance.com`;
 
 export const colors = {
   LOGO_COLOR: '#E38537',
@@ -12,7 +13,8 @@ export const colors = {
   ICON_BANK: '#EAC100',
   ICON_SUCCESS: '#00DB00',
   BANK_CARD_BACKGROUND: '#ff7575',
-  BORDER_COLOR: '#e0e0e0'
+  BORDER_COLOR: '#e0e0e0',
+  INTEREST_COLOR: '#FF5809'
 };
 
 export const DEBUG = __DEV__;

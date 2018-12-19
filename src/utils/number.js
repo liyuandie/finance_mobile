@@ -19,3 +19,10 @@ export function convertAmount(number, places, thousand, decimal) {
       : '')
   );
 }
+
+//用户手机号保护
+
+export function encryptMobile(mobile) {
+  if (!mobile) return '未知';
+  return `${mobile.slice(0, 3)}****${mobile.slice(7, 11)}`;
+}

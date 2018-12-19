@@ -8,7 +8,8 @@ import {
   ScrollView,
   RefreshControl,
   Alert,
-  InteractionManager
+  InteractionManager,
+  TouchableOpacity
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 const { height, width } = Dimensions.get('window');
@@ -205,6 +206,7 @@ class HomeScreen extends Component {
                 borderRadius={20}
                 buttonStyle={{ width: 250, height: 40, marginBottom: 25 }}
                 fontSize={15}
+                onPress={() => navigation.push('FinancialPro', { product: hot_product })}
               />
             </View>
           ) : (
@@ -218,40 +220,50 @@ class HomeScreen extends Component {
           {products && products.length > 0 ? (
             products.map(x => {
               return (
-                <View style={styles.product_item} key={x.id}>
-                  <View style={styles.above}>
-                    <Text style={styles.product_name}>{x.name}</Text>
-                    <View style={styles.info_row_container}>
-                      <View style={styles.info_column}>
-                        <View style={styles.value}>
-                          <Text style={styles.big_text}>{x.interest.toFixed(2)}</Text>
-                          <Text style={styles.small}>%</Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.push('FinancialPro', {
+                      product: x
+                    })
+                  }
+                  style={styles.product_wrapper}
+                  key={x.id}
+                >
+                  <View style={styles.product_item}>
+                    <View style={styles.above}>
+                      <Text style={styles.product_name}>{x.name}</Text>
+                      <View style={styles.info_row_container}>
+                        <View style={styles.info_column}>
+                          <View style={styles.value}>
+                            <Text style={styles.big_text}>{x.interest.toFixed(2)}</Text>
+                            <Text style={styles.small}>%</Text>
+                          </View>
+                          <Text style={styles.key}>年化收益</Text>
                         </View>
-                        <Text style={styles.key}>年化收益</Text>
-                      </View>
-                      <View style={styles.info_column}>
-                        <View style={styles.value}>
-                          <Text style={styles.big_text}>{timeUtils.daysOfEaring(x)}</Text>
-                          <Text style={{ ...styles.small, color: '#3c3c3c' }}>天</Text>
+                        <View style={styles.info_column}>
+                          <View style={styles.value}>
+                            <Text style={styles.big_text}>{timeUtils.daysOfEaring(x)}</Text>
+                            <Text style={{ ...styles.small, color: '#3c3c3c' }}>天</Text>
+                          </View>
+                          <Text style={styles.key}>投资期限</Text>
                         </View>
-                        <Text style={styles.key}>投资期限</Text>
-                      </View>
-                      <View style={styles.info_column}>
-                        <PercentageCircle
-                          radius={25}
-                          percent={tenderUtils.getRemindPercent(x)}
-                          color={colors.THEME_COLOR}
-                        />
+                        <View style={styles.info_column}>
+                          <PercentageCircle
+                            radius={25}
+                            percent={tenderUtils.getRemindPercent(x)}
+                            color={colors.THEME_COLOR}
+                          />
+                        </View>
                       </View>
                     </View>
+                    <View style={styles.below}>
+                      <Text style={styles.product_type}>{financialProType[x.fType]}</Text>
+                      <Text style={styles.product_rest}>{`剩余:￥${numberUtils.convertAmount(
+                        x.finance_info.remind / 100
+                      )}`}</Text>
+                    </View>
                   </View>
-                  <View style={styles.below}>
-                    <Text style={styles.product_type}>{financialProType[x.fType]}</Text>
-                    <Text style={styles.product_rest}>{`剩余:￥${numberUtils.convertAmount(
-                      x.finance_info.remind / 100
-                    )}`}</Text>
-                  </View>
-                </View>
+                </TouchableOpacity>
               );
             })
           ) : (
@@ -384,6 +396,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     borderRadius: 10
   },
+  product_wrapper: { width: '100%' },
   product_item: {
     width: '100%'
   },

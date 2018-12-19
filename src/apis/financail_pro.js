@@ -9,3 +9,11 @@ export function getAllTenders(params) {
     ftype
   });
 }
+
+//查询单个标的信息
+export function querySingleTender(params) {
+  const { finance_id } = params || {};
+  return postApi('/apis/tender/detail', {
+    finance_id
+  });
+}

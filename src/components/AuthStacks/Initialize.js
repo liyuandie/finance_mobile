@@ -29,23 +29,25 @@ class BootStrap extends Component {
         });
         if (res.code === 0) {
           const { lender_contract, cardInfo, queryBalanceByContract } = this.props;
-          await cardInfo({
-            mobile,
-            ticket,
-            contract: lender_contract.contracts
-          }).catch(error => {
-            Alert.alert('错误', error.message);
-          });
-          await queryBalanceByContract({
-            mobile,
-            ticket,
-            contracts: lender_contract.contracts
-          });
+          lender_contract &&
+            (await cardInfo({
+              mobile,
+              ticket,
+              contract: lender_contract.contracts
+            }).catch(error => {
+              Alert.alert('错误', error.message);
+            }));
+          lender_contract &&
+            (await queryBalanceByContract({
+              mobile,
+              ticket,
+              contracts: lender_contract.contracts
+            }));
           navigation.navigate('App');
           return res;
         }
       } catch (error) {
-        Alert.alert('获取用户信息失败');
+        __DEV__ && console.log(error);
       }
     });
   }
