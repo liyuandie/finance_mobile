@@ -30,6 +30,8 @@ import Safety from '../components/HomeStacks/Infos/Safety';
 import BankInfo from '../components/HomeStacks/Infos/BankInfo';
 import FinancialPro from '../components/InvestStacks/FinancialPro/FinancialPro';
 import Buyers from '../components/InvestStacks/FinancialPro/Buyers';
+import CreateInvestOrder from '../components/InvestStacks/FinancialPro/CreateInvestOrder';
+import Contracts from '../components/common/Contracts';
 
 const AppStack = createStackNavigator(
   {
@@ -59,7 +61,9 @@ const AppStack = createStackNavigator(
     Safety,
     BankInfo,
     FinancialPro,
-    Buyers
+    Buyers,
+    CreateInvestOrder,
+    Contracts
   },
   {
     navigationOptions: {

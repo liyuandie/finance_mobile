@@ -26,3 +26,12 @@ export function encryptMobile(mobile) {
   if (!mobile) return '未知';
   return `${mobile.slice(0, 3)}****${mobile.slice(7, 11)}`;
 }
+// 计算投资收益
+
+export function countProfit(BuyAmount, daysOfEring, interest) {
+  const BuyAmountNum = parseInt(BuyAmount);
+  if (!BuyAmountNum || BuyAmountNum <= 0) {
+    return '0';
+  }
+  return (BuyAmountNum * (interest * (daysOfEring / 365))).toFixed(2);
+}

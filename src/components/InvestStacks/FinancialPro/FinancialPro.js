@@ -178,7 +178,7 @@ class FinancialPro extends Component {
                       ...LIST_COMMON_STYLES.listItemContainer
                     }}
                     titleStyle={{ ...LIST_COMMON_STYLES.listItemTitle, color: colors.INTEREST_COLOR, fontSize: 13 }}
-                    rightTitle={'购买记录'}
+                    rightTitle={'出借记录'}
                     rightTitleStyle={{ ...LIST_COMMON_STYLES.listItemRightTitle, fontSize: 13 }}
                     onPress={() => navigation.push('Buyers', { FinancialPro: FinancialPro })}
                   />
@@ -251,6 +251,7 @@ class FinancialPro extends Component {
           containerViewStyle={styles.btn}
           textStyle={styles.btn_text}
           backgroundColor={colors.THEME_COLOR}
+          onPress={() => navigation.push('CreateInvestOrder', { product: FinancialPro })}
           // borderRadius={5}
         />
       </View>
