@@ -12,7 +12,11 @@ class LoginForm extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '登录',
-      headerRight: <Text style={NAVIGATION_COMMON_STYLES.headerRight}>忘记密码</Text>,
+      headerRight: (
+        <Text style={NAVIGATION_COMMON_STYLES.headerRight} onPress={() => navigation.push('SmsLogin')}>
+          忘记密码
+        </Text>
+      ),
       headerRightContainerStyle: NAVIGATION_COMMON_STYLES.headerRightContainer
     };
   };

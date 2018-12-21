@@ -7,6 +7,12 @@ const userAccount = (state = {}, action) => {
         ticket: action.ticket,
         mobile: action.user.mobile
       };
+    case 'SMS_LOGIN':
+      return {
+        ...state,
+        ticket: action.ticket,
+        mobile: action.user.mobile
+      };
     case 'ACCOUNT_INFO':
       return {
         ...state,

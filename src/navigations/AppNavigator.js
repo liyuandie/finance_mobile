@@ -32,6 +32,8 @@ import FinancialPro from '../components/InvestStacks/FinancialPro/FinancialPro';
 import Buyers from '../components/InvestStacks/FinancialPro/Buyers';
 import CreateInvestOrder from '../components/InvestStacks/FinancialPro/CreateInvestOrder';
 import Contracts from '../components/common/Contracts';
+import SmsLogin from '../components/AuthStacks/SmsLogin';
+import ResetLoginPwd from '../components/AuthStacks/ResetLoginPwd';
 
 const AppStack = createStackNavigator(
   {
@@ -86,7 +88,9 @@ const AuthStack = createStackNavigator(
   {
     Login: LoginScreen,
     PreAuth: PreAuth,
-    Initialize: Initialize
+    Initialize: Initialize,
+    SmsLogin: SmsLogin,
+    ResetLoginPwd: ResetLoginPwd
   },
   {
     navigationOptions: {
@@ -97,7 +101,8 @@ const AuthStack = createStackNavigator(
       headerTintColor: colors.HEADER_TINT_COLOR,
       headerTitleStyle: {
         fontWeight: 'bold'
-      }
+      },
+      headerBackTitle: null
       // header: null
     },
     initialRouteName: 'Initialize'

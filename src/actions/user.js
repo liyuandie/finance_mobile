@@ -1,5 +1,6 @@
 import * as UserApis from '../apis/account';
 import * as cardApis from '../apis/card';
+import * as passwordApis from '../apis/password';
 
 const login = ({ mobile, password }) => async dispatch => {
   try {
@@ -9,6 +10,24 @@ const login = ({ mobile, password }) => async dispatch => {
     });
     dispatch({
       type: 'LOGIN',
+      user: res.user,
+      ticket: res.ticket
+    });
+    return res;
+  } catch (error) {
+    __DEV__ && console.log('LOGIN ERROR:', error);
+    return error;
+  }
+};
+
+const SmsLogin = ({ mobile, code }) => async dispatch => {
+  try {
+    const res = await passwordApis.SmsLogin({
+      mobile,
+      code
+    });
+    dispatch({
+      type: 'SMS_LOGIN',
       user: res.user,
       ticket: res.ticket
     });
@@ -93,4 +112,4 @@ const cardInfo = ({ mobile, ticket, contract }) => async dispatch => {
   }
 };
 
-export { login, accountInfo, queryBalanceByContract, logout, clearAuth, cardInfo };
+export { login, accountInfo, queryBalanceByContract, logout, clearAuth, cardInfo, SmsLogin };
