@@ -99,6 +99,7 @@ class User extends Component {
               leftIcon={{ name: 'event-note', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
               containerStyle={LIST_COMMON_STYLES.listItemContainerWithBorder}
               titleStyle={LIST_COMMON_STYLES.listItemTitle}
+              onPress={() => navigation.push('InvestRecord')}
             />
             <ListItem
               title="我的借款"

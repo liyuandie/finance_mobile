@@ -17,7 +17,7 @@ class PreAuth extends Component {
   }
 
   handleBtnPress = single => {
-    this.props.navigation.navigate(single);
+    this.props.navigation.push(single);
   };
 
   render() {
