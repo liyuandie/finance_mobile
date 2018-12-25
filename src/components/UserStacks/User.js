@@ -59,9 +59,12 @@ class User extends Component {
             <Text style={styles.total_text}>持有资产(元)</Text>
             <Text style={styles.amount}>{numberUtils.convertAmount(total)}</Text>
           </View>
-          <View style={styles.total_container}>
+          <View style={{ ...styles.total_container, paddingTop: 0 }}>
             <Text style={styles.total_text}>投资中(元)</Text>
-            <Text style={styles.amount} onPress={() => navigation.push('MyInvesting')}>
+            <Text
+              style={{ ...styles.amount, color: colors.INTEREST_COLOR, fontSize: 20 }}
+              onPress={() => navigation.push('MyInvesting')}
+            >
               {numberUtils.convertAmount(tender)}
             </Text>
           </View>
