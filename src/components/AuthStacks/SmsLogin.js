@@ -57,7 +57,7 @@ class SmsLogin extends Component {
         return res;
       }
     } catch (error) {
-      Alert.alert('错误', error.message, [{ text: '确认' }]);
+      Alert.alert('错误', '请稍后再试', [{ text: '确认' }]);
     }
   };
 
@@ -70,7 +70,6 @@ class SmsLogin extends Component {
     }
     try {
       this.setState({ status: 1 });
-      console.log('22222222222', mobile, smsCode);
       const res = await SmsLogin({
         mobile,
         code: smsCode
@@ -84,7 +83,7 @@ class SmsLogin extends Component {
         Alert.alert('验证失败', '请重新验证', [{ text: '确认' }]);
       }
     } catch (error) {
-      Alert.alert('错误', error.message, [{ text: '确认' }]);
+      Alert.alert('错误', '请稍后再试', [{ text: '确认' }]);
     }
   };
 

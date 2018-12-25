@@ -147,20 +147,22 @@ const styles = StyleSheet.create({
   container: {},
   ItemContainer: {
     backgroundColor: '#ffffff',
-    width: '100%',
-    marginBottom: 10,
+    marginTop: 10,
     justifyContent: 'space-between',
     // shadowColor: 'red',
     // shadowRadius: 0.01,
     // shadowOpacity: 0.5,
-    borderRadius: 10,
-    height: 120
+    borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 10
   },
   row_box: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 10,
+    marginTop: 20,
+    marginRight: 10,
+    marginLeft: 10,
     borderBottomColor: '#d0d0d0',
     borderBottomWidth: 0.5
   },
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     height: 60,
     // backgroundColor: 'red',,
-    marginBottom: 10
+    marginBottom: 20
   },
   name: {
     fontSize: 14,

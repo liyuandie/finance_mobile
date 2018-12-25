@@ -36,6 +36,8 @@ class UserInfo extends Component {
               rightTitleStyle={styles.listItemRightTitle}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
+              // wrapperStyle={{ backgroundColor: 'red', alignItems: 'center' }}
+              // hideChevron
             />
             <ListItem
               title="电子邮箱"
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     height: 45
   },
   listItemTitle: {
-    fontSize: 14
+    fontSize: 13
   },
   listItemRightTitle: {
     fontSize: 13,

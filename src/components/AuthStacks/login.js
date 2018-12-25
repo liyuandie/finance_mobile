@@ -58,7 +58,7 @@ class LoginForm extends Component {
         Alert.alert('登陆失败', res.message, [{ text: '重试' }]);
       }
     } catch (error) {
-      Alert.alert('登陆失败', error.message, [{ text: '重试' }]);
+      Alert.alert('登陆失败', '请稍后再试', [{ text: '重试' }]);
     }
   };
 

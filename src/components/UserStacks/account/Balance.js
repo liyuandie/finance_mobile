@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     height: 40
   },
   listItemTitle: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '400',
     color: '#000000'
   }

@@ -53,7 +53,7 @@ class SetUserName extends Component {
       }
       return res;
     } catch (error) {
-      Alert.alert('错误', error.message, [{ text: '确定' }]);
+      Alert.alert('错误', '请稍后再试', [{ text: '确定' }]);
       return error;
     }
   };

@@ -60,12 +60,12 @@ export const LIST_COMMON_STYLES = StyleSheet.create({
     marginRight: 10
   },
   listItemTitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#000000',
     paddingLeft: 5
   },
   listItemRightTitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#646464'
   }
 });
