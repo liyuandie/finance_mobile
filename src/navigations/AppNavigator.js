@@ -35,6 +35,7 @@ import Contracts from '../components/common/Contracts';
 import SmsLogin from '../components/AuthStacks/SmsLogin';
 import ResetLoginPwd from '../components/AuthStacks/ResetLoginPwd';
 import InvestRecord from '../components/UserStacks/InvestRecord';
+import MyInvesting from '../components/UserStacks/MyInvesting';
 
 const AppStack = createStackNavigator(
   {
@@ -67,7 +68,8 @@ const AppStack = createStackNavigator(
     Buyers,
     CreateInvestOrder,
     Contracts,
-    InvestRecord
+    InvestRecord,
+    MyInvesting
   },
   {
     navigationOptions: {

@@ -24,3 +24,13 @@ export function getUserInvestRecord(params) {
     offset
   });
 }
+
+//获取用户投资的产品及详情
+export function getUserInvestSummary(params) {
+  const { mobile, ticket, user_id } = params || {};
+  return postApi('/apis/user/tender/mine/investing/summary', {
+    mobile,
+    ticket,
+    user_id
+  });
+}

@@ -124,7 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   head_text: {
-    color: '#3c3c3c'
+    color: '#3c3c3c',
+    fontSize: 12
   },
   listItem: {
     flexDirection: 'row',

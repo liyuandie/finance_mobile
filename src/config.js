@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 export let API_BASE_URL = __DEV__ ? `https://api.dev.gogofinance.com` : `https://api.prod.gogofinance.com`;
 // export let API_BASE_URL = `https://api.prod.gogofinance.com`;
 
@@ -14,7 +16,8 @@ export const colors = {
   ICON_SUCCESS: '#00DB00',
   BANK_CARD_BACKGROUND: '#ff7575',
   BORDER_COLOR: '#e0e0e0',
-  INTEREST_COLOR: '#FF5809'
+  INTEREST_COLOR: '#FF5809',
+  NORMAL_TEXT_COLOR: '#272727'
 };
 
 export const DEBUG = __DEV__;
@@ -75,5 +78,30 @@ export const NAVIGATION_COMMON_STYLES = StyleSheet.create({
   },
   headerRightContainer: {
     paddingRight: 15
+  }
+});
+
+export const EMPTY_STYLES = StyleSheet.create({
+  emptyContainer: {
+    backgroundColor: '#ffffff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: height
+  },
+  emptyText: {
+    color: '#272727'
+  }
+});
+
+export const ITEM_STYLES = StyleSheet.create({
+  value: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: 10
+  },
+  key: {
+    fontSize: 12,
+    color: '#8e8e8e'
   }
 });

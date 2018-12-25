@@ -59,16 +59,12 @@ class User extends Component {
             <Text style={styles.total_text}>持有资产(元)</Text>
             <Text style={styles.amount}>{numberUtils.convertAmount(total)}</Text>
           </View>
-          {/* <View style={styles.profit_and_investing}>
-            <View style={styles.row_box}>
-              <Text>投资中(元)</Text>
-              <Text style={styles.amount}>{tender}</Text>
-            </View>
-            <View style={styles.row_box}>
-              <Text>预期收益(元)</Text>
-              <Text style={styles.amount}>0.00</Text>
-            </View>
-          </View> */}
+          <View style={styles.total_container}>
+            <Text style={styles.total_text}>投资中(元)</Text>
+            <Text style={styles.amount} onPress={() => navigation.push('MyInvesting')}>
+              {numberUtils.convertAmount(tender)}
+            </Text>
+          </View>
         </View>
         <View style={styles.block}>
           <List containerStyle={LIST_COMMON_STYLES.listContainer}>
@@ -177,7 +173,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   total_container: {
-    height: 150,
     justifyContent: 'center',
     padding: 20
   },

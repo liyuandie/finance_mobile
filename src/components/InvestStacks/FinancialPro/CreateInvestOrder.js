@@ -37,6 +37,7 @@ class CreateInvestOrder extends Component {
     this.setState({
       amount: (product.finance_info.remind / 100).toString()
     });
+    this.checkInputValue((product.finance_info.remind / 100).toString());
     return;
   };
   checkInputValue = value => {
