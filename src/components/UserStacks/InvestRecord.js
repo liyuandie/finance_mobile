@@ -44,7 +44,8 @@ class InvestRecord extends Component {
       investings: null,
       pageNo: 1,
       totalPage: 1,
-      refresh_status: 1
+      refresh_status: 1,
+      emptyText: '请耐心等待或尝试下拉刷新'
     };
   }
 
@@ -55,6 +56,14 @@ class InvestRecord extends Component {
     });
     try {
       const { lenderContract, mobile, ticket } = this.props;
+      if (!lenderContract) {
+        this.setState({
+          emptyText: '您还未签约存管账户，暂无出借记录',
+          refreshing: false
+          // refresh_status: 1
+        });
+        return;
+      }
       const res = await assetsApis.getUserInvestRecord({
         mobile,
         ticket,
@@ -174,7 +183,7 @@ class InvestRecord extends Component {
           />
         ) : (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>暂无出借记录或尝试下拉刷新</Text>
+            <Text style={styles.emptyText}>{this.state.emptyText}</Text>
           </View>
         )}
       </ScrollView>

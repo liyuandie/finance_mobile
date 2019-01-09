@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="output">
+      <form action="" method="POST" id="form" style="display: none">
+        <input type="text" name="version" id="version" value="" />
+        <input type="text" name="service" id="service" value="" />
+        <input type="text" id="partner" name="partner" value="" />
+        <input type="text" name="signType" id="signType" value="" />
+        <input type="text" name="reqData" id="reqData" value="" /> <input type="text" name="sign" id="sign" value="" />
+        <input type="submit" value="Submit" />
+      </form>
+      <script>
+        function waitForBridge(cb) {
+          if (window.postMessage.length === 1) {
+            cb();
+          } else {
+            setTimeout(() => waitForBridge(cb), 1000);
+          }
+        }
+
+        function parseRes(encodeStr) {
+          return JSON.parse(decodeURIComponent(encodeStr));
+        }
+        window.onload = function() {
+          document.addEventListener(
+            'message',
+            e => {
+              var data = JSON.parse(e.data);
+              document.getElementById('form').action = data.gateway;
+              document.getElementById('version').value = data.version;
+              document.getElementById('service').value = data.service;
+              document.getElementById('partner').value = data.partner;
+              document.getElementById('signType').value = data.signType;
+              document.getElementById('reqData').value = data.reqData;
+              document.getElementById('sign').value = data.sign;
+              var from = document.getElementById('form');
+              form.submit();
+            },
+            { once: true }
+          );
+          var query = window.location.search;
+          if (query) {
+            var queryStr = {};
+            query
+              .slice(1)
+              .split('&')
+              .forEach(x => {
+                var [k, v] = x.split('=');
+                queryStr[k] = v;
+              });
+            try {
+              var jsonToPost = {
+                service: queryStr['service'],
+                code: queryStr['resError'] ? 1 : 0
+              };
+              waitForBridge(() => {
+                window.postMessage(JSON.stringify(jsonToPost));
+              });
+            } catch (error) {
+              throw Error(error.message);
+            }
+          }
+        };
+      </script>
+    </div>
+  </body>
+</html>

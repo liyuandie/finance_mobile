@@ -31,23 +31,24 @@ class YinPiao extends Component {
       this.setState({
         products: res.tenders,
         totalPage: res.total,
-        foot_status: 0
+        foot_status: 0,
+        pageNo: 1
       });
       __DEV__ && console.log('银票:', this.state.products);
       return res;
     } catch (error) {
+      this.setState({
+        pageNo: 1
+      });
       this.$tips('获取失败，请手动刷新或稍后再试');
     }
-    this.setState({
-      pageNo: 1
-    });
   };
 
   loadMore = async () => {
     // 没有更多了
     if (this.state.pageNo >= Math.ceil(this.state.totalPage / 10)) {
       // this.$tips('已经到最底啦');
-      console.log('2222222222222');
+      console.log('2222222222222', this.state.pageNo, Math.ceil(this.state.totalPage / 10));
       return;
     }
     // 获取更多数据

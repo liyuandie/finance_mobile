@@ -7,6 +7,8 @@ import Balance from '../components/UserStacks/account/Balance';
 import LoginScreen from '../components/AuthStacks/login';
 import PreAuth from '../components/AuthStacks/PreAuth';
 import Initialize from '../components/AuthStacks/Initialize';
+import Register from '../components/AuthStacks/Register';
+
 import ChangeLoginPassword from '../components/UserStacks/settings/ChangeLoginPassword';
 import AboutUs from '../components/UserStacks/About/AboutUs';
 import FindUs from '../components/UserStacks/About/FindUs';
@@ -36,6 +38,10 @@ import SmsLogin from '../components/AuthStacks/SmsLogin';
 import ResetLoginPwd from '../components/AuthStacks/ResetLoginPwd';
 import InvestRecord from '../components/UserStacks/InvestRecord';
 import MyInvesting from '../components/UserStacks/MyInvesting';
+
+import FormWebview from '../components/common/FormWebview';
+
+import PersonalSignContract from '../components/common/pzh_pages/PersonalSignContract';
 
 const AppStack = createStackNavigator(
   {
@@ -69,7 +75,9 @@ const AppStack = createStackNavigator(
     CreateInvestOrder,
     Contracts,
     InvestRecord,
-    MyInvesting
+    MyInvesting,
+    PersonalSignContract,
+    FormWebview
   },
   {
     navigationOptions: {
@@ -94,7 +102,8 @@ const AuthStack = createStackNavigator(
     PreAuth: PreAuth,
     Initialize: Initialize,
     SmsLogin: SmsLogin,
-    ResetLoginPwd: ResetLoginPwd
+    ResetLoginPwd: ResetLoginPwd,
+    Register: Register
   },
   {
     navigationOptions: {

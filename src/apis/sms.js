@@ -11,3 +11,9 @@ export function CommonSms(params) {
   const { mobile } = params;
   return postApi('/utils/sms/verify_phone', { mobile });
 }
+
+//注册手机验证码
+export function registerSms(params) {
+  const { mobile } = params;
+  return postApi('/utils/sms/register', { mobile });
+}

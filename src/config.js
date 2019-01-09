@@ -90,7 +90,9 @@ export const EMPTY_STYLES = StyleSheet.create({
     height: height
   },
   emptyText: {
-    color: '#272727'
+    color: '#272727',
+    fontSize: 13,
+    paddingTop: 10
   }
 });
 

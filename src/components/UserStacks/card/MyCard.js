@@ -44,7 +44,7 @@ class MyCard extends Component {
           containerViewStyle={styles.btn}
           textStyle={styles.btn_text}
           backgroundColor="#00CACA"
-          borderRadius={5}
+          // borderRadius={5}
         />
       </View>
     );

@@ -18,7 +18,8 @@ class MyInvesting extends Component {
       investings: null,
       total: 0,
       refreshing: false,
-      tipText: ''
+      tipText: '',
+      emptyText: '请耐心等待或尝试下拉刷新'
     };
   }
 
@@ -26,12 +27,23 @@ class MyInvesting extends Component {
     try {
       this.setState({ refreshing: true });
       const { lenderContract, mobile, ticket } = this.props;
+      if (!lenderContract) {
+        this.setState({
+          emptyText: '您还未签约存管账户，暂无账户投资信息'
+        });
+        return;
+      }
       const res = await assetsApis.getUserInvestSummary({
         mobile,
         ticket,
         user_id: lenderContract.contracts
       });
       if (res.code === 0) {
+        if (res.summaries.length === 0) {
+          this.setState({
+            emptyText: '您还未投资任何产品'
+          });
+        }
         this.setState({
           investings: res.summaries,
           total: res.total
@@ -39,6 +51,7 @@ class MyInvesting extends Component {
         __DEV__ && console.log('用户投资产品list:', this.state.investings);
       }
     } catch (error) {
+      console.log('error:', error);
     } finally {
       this.setState({ refreshing: false });
     }
@@ -69,9 +82,9 @@ class MyInvesting extends Component {
             refreshing={this.state.refreshing}
             onRefresh={async () => {
               try {
-                const res = await this.refresh();
-                this.$tips('刷新成功');
-                return res;
+                await this.refresh().then(() => {
+                  this.$tips('刷新成功');
+                });
               } catch (error) {
                 this.$tips('获取失败，请稍后再试');
               }
@@ -135,7 +148,7 @@ class MyInvesting extends Component {
           })
         ) : (
           <View style={EMPTY_STYLES.emptyContainer}>
-            <Text style={EMPTY_STYLES.emptyText}>暂无出借记录或尝试下拉刷新</Text>
+            <Text style={EMPTY_STYLES.emptyText}>{this.state.emptyText}</Text>
           </View>
         )}
       </ScrollView>

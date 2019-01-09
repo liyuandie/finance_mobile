@@ -111,7 +111,7 @@ class FinancialPro extends Component {
             />
           }
         >
-          {FinancialPro ? (
+          {FinancialPro && FinancialPro.finance_asset && FinancialPro.finance_info ? (
             <View>
               <View style={styles.block}>
                 <View style={styles.col_box}>

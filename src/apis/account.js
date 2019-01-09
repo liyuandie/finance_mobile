@@ -7,6 +7,17 @@ export function login(params) {
     password
   });
 }
+
+//用户注册
+export function register(params) {
+  const { mobile, password, authcode } = params || {};
+  return postApi('/user/account/register', {
+    mobile,
+    password,
+    authcode
+  });
+}
+
 //获取用户信息
 export function getAccountInfo(params) {
   const { mobile, ticket } = params || {};

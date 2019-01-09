@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { View, Text, StyleSheet, ScrollView, Alert, Linking } from 'react-native';
-import { List, ListItem, Icon, Badge } from 'react-native-elements';
-import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES } from '../../config';
+import { List, ListItem, Icon, Badge, Button } from 'react-native-elements';
+import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES, EMPTY_STYLES } from '../../config';
 import * as userActions from '../../actions/user';
 import { connect } from 'react-redux';
 import { ConfirmModal } from 'beeshell';
@@ -52,7 +52,7 @@ class User extends Component {
     total = total / 100;
     tender = tender / 100;
     usable = usable / 100;
-    return (
+    return lender_contract ? (
       <ScrollView style={styles.container}>
         <View style={styles.block}>
           <View style={styles.total_container}>
@@ -80,15 +80,6 @@ class User extends Component {
               titleStyle={LIST_COMMON_STYLES.listItemTitle}
               onPress={() => navigation.push('Balance')}
             />
-            {/* <ListItem
-              title="投资金额"
-              rightTitle={`${tender} 元`}
-              rightTitleStyle={styles.listItemRightTitle}
-              leftIcon={{ name: 'account-balance-wallet', color: colors.THEME_COLOR, type: 'materialIcon', size: 22 }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
-              onPress={() => navigation.navigate('Balance')}
-            /> */}
           </List>
         </View>
         <View style={styles.block}>
@@ -106,12 +97,6 @@ class User extends Component {
               containerStyle={LIST_COMMON_STYLES.listItemContainer}
               titleStyle={LIST_COMMON_STYLES.listItemTitle}
             />
-            {/* <ListItem
-              title="交易明细"
-              leftIcon={{ name: 'home-currency-usd', color: colors.THEME_COLOR, type: 'material-community' }}
-              containerStyle={styles.listItemContainer}
-              titleStyle={styles.listItemTitle}
-            /> */}
           </List>
         </View>
         <View style={styles.block}>
@@ -161,6 +146,22 @@ class User extends Component {
           }}
         />
       </ScrollView>
+    ) : (
+      <View style={EMPTY_STYLES.emptyContainer}>
+        <Icon name="address" type="entypo" size={60} color={colors.THEME_COLOR} />
+        <Text style={EMPTY_STYLES.emptyText}>您还未签约存管账户</Text>
+        <Text style={EMPTY_STYLES.emptyText}>立即前往签约，开启您的愉快投资之旅</Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="立即前往签约"
+            backgroundColor={colors.THEME_COLOR}
+            borderRadius={20}
+            fontSize={14}
+            fontWeight="400"
+            onPress={() => navigation.push('PersonalSignContract')}
+          />
+        </View>
+      </View>
     );
   }
 }
@@ -201,8 +202,13 @@ const styles = StyleSheet.create({
     color: '#7b7b7b',
     fontWeight: '100',
     paddingBottom: 15
+  },
+  buttonContainer: {
+    marginTop: 20,
+    width: '70%'
   }
 });
+
 const mapState2Props = state => {
   return {
     user: state.user,

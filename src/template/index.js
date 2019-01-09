@@ -8,8 +8,8 @@ class xxxxxx extends Component {
   };
 
   render() {
-    __DEV__ && console.log('test_introduce screen props:', this.props);
-    const { user_settings, navigation } = this.props;
+    __DEV__ && console.log('xxxxx screen props:', this.props);
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Text>xxxxxxxx</Text>
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 
 const mapState2Props = state => {
   return {
-    user: state.user,
     mobile: state.mobile,
     ticket: state.ticket
   };

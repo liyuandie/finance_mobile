@@ -41,6 +41,7 @@ class PreAuth extends Component {
           textStyle={{ ...styles.text, color: '#646464' }}
           backgroundColor="#ffffff"
           borderRadius={6}
+          onPress={() => this.handleBtnPress('Register')}
           // buttonStyle={{ backgroundColor: '#ffffff' }}
         />
       </View>
