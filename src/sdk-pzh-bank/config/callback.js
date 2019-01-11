@@ -2,10 +2,11 @@
 // )
 
 const apiServerbase = __DEV__ ? 'https://api.dev.gogofinance.com' : 'https://api.prod.gogofinance.com';
+import { WebviewSource } from './webview';
 
 const callbackCfg = {
   personalContract: {
-    returnUrl: `${apiServerbase}/utils/r?u=http://static.test.gogofinance.com/app-webviews/static/htmls/personal-sign-contract.html`,
+    returnUrl: `${apiServerbase}/utils/r?u=${WebviewSource}`,
     notifyUrl: `${apiServerbase}/user/callback/userContract`
   },
   enterpriseContract: {
@@ -59,8 +60,7 @@ const callbackCfg = {
     notifyUrl: `${apiServerbase}/apis/callback/tender/verify`
   },
   investTender: {
-    returnUrl: `${apiServerbase}/utils/r?u=`,
-    // returnUrl: `?pzh_bank_back_entry=my-wallet`,
+    returnUrl: `${apiServerbase}/utils/r?u=${WebviewSource}`,
     notifyUrl: `${apiServerbase}/apis/callback/tender/invest`
   },
   repayMent: {

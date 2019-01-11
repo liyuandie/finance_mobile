@@ -17,3 +17,16 @@ export function querySingleTender(params) {
     finance_id
   });
 }
+
+//购买标的
+export function invest(params) {
+  const { mobile, ticket, user_id, user_mobile, amount, finance_id } = params || {};
+  return postApi('/apis/user/tender/invest', {
+    mobile,
+    ticket,
+    user_id, //签约协议号
+    user_mobile,
+    finance_id,
+    amount
+  });
+}

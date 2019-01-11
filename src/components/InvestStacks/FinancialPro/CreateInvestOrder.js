@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { timeUtils, numberUtils, tenderUtils } from '../../../utils';
 import { colors } from '../../../config';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements';
+import * as tenderApis from '../../../apis/financail_pro';
+import { getReqDataForInvest } from '../../../sdk-pzh-bank/utils/reqData';
+import { baseCfg, callbackCfg } from '../../../sdk-pzh-bank/config';
+import { pzh_getBasicForm, pzh_getStrToSign, pzh_getStrForReqData } from '../../../sdk-pzh-bank/utils/form';
 
 const { width } = Dimensions.get('window');
 
@@ -40,21 +44,22 @@ class CreateInvestOrder extends Component {
     this.checkInputValue((product.finance_info.remind / 100).toString());
     return;
   };
+
   checkInputValue = value => {
     const { balance, navigation } = this.props;
     const { usable } = balance;
     const product = navigation.getParam('product');
-    let valueNum = parseInt(value);
-    __DEV__ && console.log('输入的购买金额是：', valueNum);
+    let valueNum = parseFloat(value);
+    __DEV__ && console.log('输入的购买金额是：', valueNum.toFixed(2));
     if (valueNum > usable / 100) {
       this.setState({
-        InputErrorMessage: '余额不足'
+        InputErrorMessage: '余额不足！'
       });
       return;
     }
     if (valueNum > product.finance_info.remind / 100) {
       this.setState({
-        InputErrorMessage: '已超出剩余可投资金额'
+        InputErrorMessage: '已超出剩余可投资金额！'
       });
       return;
     }
@@ -66,6 +71,60 @@ class CreateInvestOrder extends Component {
       profit: profit
     });
     return;
+  };
+
+  createInvestOrder = async () => {
+    const { mobile, ticket, lender_contract, balance, navigation } = this.props;
+    let { amount, checked } = this.state;
+    amount = parseFloat(amount);
+    const product = navigation.getParam('product');
+    console.log('111111111', amount.toFixed(2));
+    if (!amount) {
+      this.setState({
+        InputErrorMessage: '请输入金额！'
+      });
+      return;
+    } else if (!checked) {
+      this.setState({
+        InputErrorMessage: '请先仔细阅读投资须知！'
+      });
+      return;
+    }
+    try {
+      const res = await tenderApis.invest({
+        mobile,
+        ticket,
+        user_id: lender_contract.contracts,
+        user_mobile: mobile,
+        amount: numberUtils.yuan2fen(amount),
+        finance_id: product.financeid
+      });
+      __DEV__ && console.log('order number is:', res.invest_id);
+      if (res.code === 0) {
+        const orderNo = res.invest_id;
+        const applyTime = timeUtils.getCurrentTime();
+        const reqDataObj = getReqDataForInvest(
+          orderNo,
+          product.financeid,
+          amount.toFixed(2),
+          lender_contract.contracts,
+          callbackCfg,
+          applyTime
+        );
+        const strToSign = pzh_getStrToSign(reqDataObj, baseCfg);
+        let formData = pzh_getBasicForm(baseCfg.GETWAYS.tender, strToSign, baseCfg.service.investTender, baseCfg);
+        formData.reqData = pzh_getStrForReqData(reqDataObj);
+        navigation.push('FormWebview', {
+          title: '投资确认',
+          formData: formData
+        });
+      } else {
+        Alert.alert(res.message);
+      }
+    } catch (error) {
+      Alert.alert('出错啦');
+      __DEV__ && console.log(error);
+    }
   };
 
   render() {
@@ -150,6 +209,8 @@ class CreateInvestOrder extends Component {
             borderRadius={20}
             buttonStyle={{ width: width * 0.8, height: 40 }}
             fontSize={15}
+            onPress={this.createInvestOrder}
+            disabled={!this.state.checked || !!this.state.InputErrorMessage}
           />
           <View style={styles.check}>
             <CheckBox
@@ -320,7 +381,8 @@ const mapState2Props = state => {
     user: state.user,
     mobile: state.mobile,
     ticket: state.ticket,
-    balance: state.balance
+    balance: state.balance,
+    lender_contract: state.lender_contract
   };
 };
 

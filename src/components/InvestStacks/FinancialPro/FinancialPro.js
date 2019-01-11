@@ -7,6 +7,7 @@ import { Rating, ListItem, List, Button } from 'react-native-elements';
 import StepIndicator from 'react-native-step-indicator';
 import { timeUtils, tenderUtils } from '../../../utils';
 import { Table, Rows } from 'react-native-table-component';
+import { ConfirmModal } from 'beeshell';
 
 const { width, height } = Dimensions.get('window');
 const labels = ['投资开始', '投资中', '投资结束', '获利中', '获利结束', '回款中', '回款结束'];
@@ -94,6 +95,16 @@ class FinancialPro extends Component {
     //   __DEV__ && console.log('FinancialPro:', this.state.FinancialPro);
     // }
   }
+
+  handleBtnPress = () => {
+    const { navigation, lender_contract } = this.props;
+    const { FinancialPro } = this.state;
+    if (lender_contract) {
+      navigation.push('CreateInvestOrder', { product: FinancialPro });
+    } else {
+      this._confirmModal.open();
+    }
+  };
 
   render() {
     __DEV__ && console.log('FinancialPro screen props:', this.props);
@@ -251,8 +262,24 @@ class FinancialPro extends Component {
           containerViewStyle={styles.btn}
           textStyle={styles.btn_text}
           backgroundColor={colors.THEME_COLOR}
-          onPress={() => navigation.push('CreateInvestOrder', { product: FinancialPro })}
+          onPress={this.handleBtnPress}
           // borderRadius={5}
+        />
+        <ConfirmModal
+          ref={c => {
+            this._confirmModal = c;
+          }}
+          title="提示"
+          body={`您还未开通存管账户，签约后方可进行购买，是否前往签约存管账户?`}
+          cancelable={true}
+          cancelTitle="再看看"
+          confirmTitle="立即前往"
+          cancelCallback={() => {
+            __DEV__ && console.log('cancel');
+          }}
+          confirmCallback={() => {
+            navigation.push('PersonalSignContract');
+          }}
         />
       </View>
     );
@@ -364,7 +391,8 @@ const mapState2Props = state => {
   return {
     user: state.user,
     mobile: state.mobile,
-    ticket: state.ticket
+    ticket: state.ticket,
+    lender_contract: state.lender_contract
   };
 };
 

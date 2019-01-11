@@ -35,3 +35,11 @@ export function countProfit(BuyAmount, daysOfEring, interest) {
   }
   return (BuyAmountNum * (interest * (daysOfEring / 365))).toFixed(2);
 }
+// 货币转换：分-元
+export function fen2yuan(value) {
+  return value / 100;
+}
+// 货币转换：分-元
+export function yuan2fen(value) {
+  return value * 100;
+}

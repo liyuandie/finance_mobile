@@ -6,6 +6,7 @@ import { colors } from '../../config';
 const { width } = Dimensions.get('window');
 import ProgressBar from 'react-native-progress/Bar';
 import { WebviewSource } from '../../sdk-pzh-bank/config/webview';
+import { baseCfg } from '../../sdk-pzh-bank/config';
 
 class PersonalSignContract extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -41,7 +42,12 @@ class PersonalSignContract extends Component {
     if (res.code === 1) {
       navigation.goBack();
     } else {
-      navigation.navigate('User');
+      switch (res.service) {
+        case baseCfg.service.personalContract:
+          navigation.navigate('User');
+        case baseCfg.service.investTender:
+          navigation.goBack();
+      }
     }
   };
 
@@ -72,9 +78,9 @@ class PersonalSignContract extends Component {
   };
 
   render() {
-    __DEV__ && console.log('PersonalSignContract screen props:', this.props);
     const { navigation } = this.props;
     const formData = navigation.getParam('formData');
+    __DEV__ && console.log('PersonalSignContract screen props:', this.props, formData);
     return (
       <View style={styles.container}>
         <WebView

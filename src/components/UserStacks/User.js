@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { View, Text, StyleSheet, ScrollView, Alert, Linking } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, Linking, RefreshControl } from 'react-native';
 import { List, ListItem, Icon, Badge, Button } from 'react-native-elements';
 import { colors, NAVIGATION_COMMON_STYLES, LIST_COMMON_STYLES, EMPTY_STYLES } from '../../config';
 import * as userActions from '../../actions/user';
@@ -24,8 +24,16 @@ class User extends Component {
     };
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false
+    };
+  }
+
   refresh = async () => {
     const { mobile, ticket, lender_contract, queryBalanceByContract, cardInfo } = this.props;
+    if (!lender_contract) return;
     try {
       await queryBalanceByContract({
         mobile,
@@ -41,9 +49,9 @@ class User extends Component {
       Alert.alert('错误', '请稍后再试', [{ text: '确认' }]);
     }
   };
-  // componentDidMount() {
-  //   this.refresh();
-  // }
+  componentDidMount() {
+    this.refresh();
+  }
   render() {
     __DEV__ && console.log('user_screen props:', this.props);
     const { navigation, balance, lender_contract, user } = this.props;
@@ -53,7 +61,12 @@ class User extends Component {
     tender = tender / 100;
     usable = usable / 100;
     return lender_contract ? (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl onRefresh={this.refresh} refreshing={this.state.refreshing} title={'正在刷新'} />
+        }
+        style={styles.container}
+      >
         <View style={styles.block}>
           <View style={styles.total_container}>
             <Text style={styles.total_text}>持有资产(元)</Text>
