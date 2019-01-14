@@ -38,6 +38,7 @@ import SmsLogin from '../components/AuthStacks/SmsLogin';
 import ResetLoginPwd from '../components/AuthStacks/ResetLoginPwd';
 import InvestRecord from '../components/UserStacks/InvestRecord';
 import MyInvesting from '../components/UserStacks/MyInvesting';
+import Charge from '../components/UserStacks/account/Charge';
 
 import FormWebview from '../components/common/FormWebview';
 
@@ -77,7 +78,8 @@ const AppStack = createStackNavigator(
     InvestRecord,
     MyInvesting,
     PersonalSignContract,
-    FormWebview
+    FormWebview,
+    Charge
   },
   {
     navigationOptions: {

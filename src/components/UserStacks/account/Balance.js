@@ -19,7 +19,7 @@ class Balance extends Component {
   };
   render() {
     __DEV__ && console.log('lender balance screen props:', this.props);
-    const { balance } = this.props;
+    const { balance, navigation } = this.props;
     return (
       <ScrollView>
         <View style={styles.balanceContainer}>
@@ -33,6 +33,7 @@ class Balance extends Component {
               leftIcon={{ name: 'credit-card', color: colors.THEME_COLOR, size: 20 }}
               containerStyle={styles.listItemContainerWithBorder}
               titleStyle={styles.listItemTitle}
+              onPress={() => navigation.push('Charge')}
             />
             <ListItem
               title="提现"
